@@ -1,0 +1,189 @@
+<%- contentFor('styles') %>
+<%- contentFor('scripts') %>
+<script>
+const generateTitle = () => {
+  return '<h1 class="text-center mb-3">My Listings</h1>'
+}
+
+// update filters, add artists?
+const generateFilter = ({ queries: { q, orderBy, sortBy } = {} } = {}) => {
+  return `
+    <form id="filter" class="row row-cols-lg-auto g-3 justify-content-center align-items-center mb-3">
+      <div class="col-12">
+        <div class="input-group">
+          <div class="input-group-text">Search</div>
+          <input class="form-control" placeholder="Content" name="q" type="text" value="${q || ''}">
+        </div>
+      </div>
+
+      <div class="col-12">
+        <div class="input-group">
+          <div class="input-group-text">Filter By</div>
+          <select class="form-select" name="orderBy" value="${orderBy || ''}">
+            <option ${orderBy === 'id' ? 'selected' : ''} value="id">ID</option>
+            <option ${orderBy === 'title' ? 'selected' : ''} value="title">Title</option>
+            <option ${orderBy === 'description' ? 'selected' : ''} value="description">Description</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="col-12">
+        <div class="input-group">
+          <div class="input-group-text">Sort By</div>
+          <select class="form-select" name="sortBy">
+            <option ${sortBy === 'asc' ? 'selected' : ''} value="asc">Ascending</option>
+            <option ${sortBy === 'desc' ? 'selected' : ''} value="desc">Descending</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="col-12">
+        <button class="btn btn-light" type="submit" >Submit</button>
+      </div>
+
+      <div class="col-12">
+        <button id="reset-form" class="btn btn-danger" type="reset">Reset</button>
+      </div>
+    </form>
+  `
+}
+
+/*
+const generatePagination = (isLoading, { currentPage, totalPages } = {}) => {
+        if (isLoading || !totalPages || totalPages <= 1) return ''
+
+        let links = ''
+
+        if (totalPages > 2 && currentPage > 1) links += `<li class="page-item"><a class="page-link" href="#" data-page="1">First</a></li>`
+        if (currentPage - 1 >= 1) links += `<li class="page-item"><a class="page-link" href="#" data-page="${currentPage - 1}">Prev</a></li>`
+        if (currentPage - 2 >= 1) links += `<li class="page-item"><a class="page-link" href="#" data-page="${currentPage - 2}">${currentPage - 2}</a></li>`
+        if (currentPage - 1 >= 1) links += `<li class="page-item"><a class="page-link" href="#" data-page="${currentPage - 1}">${currentPage - 1}</a></li>`
+
+        links += `<li class="page-item active"><a class="page-link">${currentPage}</a></li>`
+
+        if (currentPage + 1 <= totalPages) links += `<li class="page-item"><a class="page-link" href="#" data-page="${currentPage + 1}">${currentPage + 1}</a></li>`
+        if (currentPage + 2 <= totalPages) links += `<li class="page-item"><a class="page-link" href="#" data-page="${currentPage + 2}">${currentPage + 2}</a></li>`
+        if (currentPage + 1 <= totalPages) links += `<li class="page-item"><a class="page-link" href="#" data-page="${currentPage + 1}">Next</a></li>`
+        if (totalPages > 2 && currentPage < totalPages) links += `<li class="page-item"><a class="page-link" href="#" data-page="${totalPages}">Last</a></li>`
+
+        return `
+    <ul class="pagination justify-content-center mt-3">
+      ${links}
+    </ul>
+  `
+} */
+
+// check href, add artist?
+const generateListing = (listing) => {
+  return `
+    <div class="col">
+      <a class="card text-body" href="/my/listings/${listing.id}" style="text-decoration: none;">
+        <div class="card-body text-center">
+          <img class="mb-2" src="${listing.user.avatar}" alt="user avatar" width="150" />
+          <h5 class="card-title mb-2">${listing.title}</h5>
+          <p class="card-text mb-2">${listing.description}</p>
+        </div>
+      </a>
+    </div>
+  `
+}
+
+// check href
+const generateListings = ({ isLoading, listings = [] } = {}) => {
+  if (isLoading) return `<div class="text-center mb-3">Loading...</div>`
+  if (listings.length === 0) {
+    return `
+      <h2 class="text-center mb-3">No Listing Found!</h2>
+      <div class="text-center">
+        <a class="btn btn-light" href="/my/listings/new">Create New Listing!</a>
+      </div>
+    `
+  }
+
+  return `
+    <div class="row">
+      <div class="col-12 col-md-10 offset-md-1 col-lg-8 offset-lg-2">
+        <div id="listings-list" class="row row-cols-1 g-3">
+          ${listings.map(generateListing).join('')}
+        </div>
+      </div>
+    </div>
+  `
+}
+
+const generatePage = (info) => {
+  const $page = $('#pages-my-listings-index')
+  const $title = generateTitle(info)
+  const $filter = generateFilter(info)
+  const $listings = generateListings(info)
+  // const $pagination = generatePagination(info)
+
+  $page.html('').append($title).append($filter).append($listings)// .append($pagination)
+}
+
+$(document).ready(() => {
+  generatePage({ isLoading: true })
+
+  axios({
+    method: 'GET',
+    url: '/api/my/listings' // check
+  }).then((resp) => {
+    generatePage({ listings: resp.data.listings })
+    // generatePage({ listings: resp.data.listings, meta: resp.data.meta })
+  })
+
+  // On Filter Submit
+  $('#pages-my-listings-index').on('submit', '#filter', (e) => {
+    e.preventDefault()
+
+    const queries = parseFormData(new FormData(e.target))
+    generatePage({ isLoading: true, queries })
+
+    axios({
+      method: 'GET',
+      url: '/api/my/listings', // check
+      params: queries
+    }).then((resp) => {
+      generatePage({ listings: resp.data.listings, queries })
+      // generatePage({ wishlists: resp.data.wishlists, meta: resp.data.meta, queries })
+    })
+  })
+
+  // On Filter Reset
+  $('#pages-my-listings-index').on('click', '#filter #reset-form', (e) => {
+    generatePage({ isLoading: true })
+
+    axios({
+      method: 'GET',
+      url: `/api/my/listings` // check
+    }).then((resp) => {
+      generatePage({ listings: resp.data.listings })
+      // generatePage({ wishlists: resp.data.wishlists, meta: resp.data.meta })
+    })
+  })
+
+  // On Page Link Click
+  $('#pages-my-listings-index').on('click', '.page-link', (e) => {
+    e.preventDefault()
+
+    const queries = parseFormData(new FormData($('#filter')[0]))
+    const page = $(e.target).data('page')
+    generatePage({ isLoading: true, queries })
+
+    axios({
+      method: 'GET',
+      url: '/api/my/listings', // check
+      params: {
+        ...queries,
+        page
+      }
+    }).then((resp) => {
+      generatePage({ listings: resp.data.listings, queries })
+      // generatePage({ wishlists: resp.data.wishlists, meta: resp.data.meta, queries })
+    })
+  })
+})
+</script>
+
+<%- contentFor('body') %>
+<div id="pages-my-listings-index" class="container"></div>

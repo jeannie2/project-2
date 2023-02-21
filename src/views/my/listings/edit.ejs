@@ -1,0 +1,144 @@
+<%- contentFor('styles') %>
+<%- contentFor('scripts') %>
+<script>
+const id = window.location.pathname.split('/').reverse()[1]
+
+const generateTitle = ({ isLoading, listing } = {}) => {
+  if (isLoading) return `<div class="text-center">Loading...</div>`
+  if (!listing) return `<h1 class="text-center mb-3">Listing ${id} Not Found!</h1>`
+
+  return `<h1 class="text-center mb-3">Edit Listing ${id}</h1>`
+}
+
+const generateItemInputs = (values, errors) => {
+  const items = values?.items || []
+  const itemsErrs = errors?.items || []
+
+  // delete form-check div, update input?
+  return items.map((item, i) => {
+    return `
+      <div class="mb-3">
+        <label for="listing-item-${i}-name" class="form-label">Item ${i + 1}</label>
+        <button class="delete-item btn btn-danger btn-sm float-end" data-index="${i}" type="button">Delete</button>
+        <input
+          id="listing-item-${i}-name"
+          class="form-control ${itemsErrs[i]?.name && 'is-invalid'}"
+          name="items[${i}][name]"
+          value="${item?.name || ''}"
+        ></input>
+        <div class="invalid-feedback">${itemsErrs[i]?.name || ''}</div>
+      </div>
+      <div class="form-check mb-3">
+        <input id="listing-item-${i}-checked" class="form-check-input" type="checkbox" name="items[${i}][checked]" ${item?.checked ? 'checked' : ''}>
+        <label for="listing-item-${i}-checked" class="form-check-label">Received/Brought</label>
+      </div>
+    `
+  }).join('')
+}
+
+// delete items div
+const generateForm = ({ isLoading, listing, errors } = {}) => {
+  if (isLoading || !listing) return ''
+
+  return `
+    <div class="row">
+      <div id="form-wrapper" class="col-12 col-md-10 offset-md-1 col-lg-8 offset-lg-2">
+        <form id="listing-edit-form">
+          <div class="mb-3">
+            <label for="listing-title" class="form-label">Title</label>
+            <input
+              id="listing-title"
+              class="form-control ${errors?.title && 'is-invalid'}"
+              name="title"
+              value="${listing?.title || ''}"
+            ></input>
+            <div class="invalid-feedback">${errors?.title || ''}</div>
+          </div>
+
+          <div class="mb-3">
+            <label for="listing-description" class="form-label">Description</label>
+            <textarea
+              id="listing-description"
+              class="form-control ${errors?.description && 'is-invalid'}"
+              name="description"
+              rows="3"
+            >${listing?.description || ''}</textarea>
+            <div class="invalid-feedback">${errors?.description || ''}</div>
+          </div>
+
+          <div class="mb-3">
+            <div class="mb-2 fw-bold">Items (Optional)</div>
+            ${generateItemInputs(listing, errors)}
+            <div class="text-center">
+              <button id="add-listing-item" class="btn btn-info btn-sm" type="button">Add Item</button>
+            </div>
+          </div>
+
+          <button class="btn btn-light" type="submit">Submit</button>
+        </form>
+      </div>
+    </div>
+  `
+}
+
+const generatePage = (info) => {
+  const $page = $('#pages-my-listings-edit')
+  const $title = generateTitle(info)
+  const $form = generateForm(info)
+
+  $page.html('').append($title).append($form)
+}
+
+const getListing = () => {
+  axios({
+    method: 'GET',
+    url: `/api/my/listings/${id}` // check
+  }).then((resp) => {
+    generatePage({ listing: resp.data })
+  }).catch((err) => {
+    generatePage()
+  })
+}
+
+const handleSubmit = (e) => {
+  e.preventDefault()
+
+  const data = new FormData(e.currentTarget)
+  $('#listing-edit-form button[type="submit"]').attr('disabled', true)
+
+  axios({
+    method: 'PUT',
+    url: `/api/my/listings/${id}`, // check
+    data
+  }).then((resp) => {
+    window.location.href = `/my/listings/${resp.data.id}` // check
+  }).catch((err) => {
+    generatePage({ listing: parseFormData(data), errors: err.response.data })
+  })
+}
+
+const handleAddItem = () => {
+  const data = parseFormData(new FormData($('#listing-edit-form')[0]))
+  data.items = [...data?.items || [], { name: '', checked: false }]  // update?
+
+  generatePage({ listing: data })
+}
+
+const handleRemoveItem = (e) => {
+  const data = parseFormData(new FormData($('#listing-edit-form')[0]))
+  data.items.splice($(e.target).data('index'), 1)
+
+  generatePage({ listing: data })
+}
+
+$(document).ready(() => {
+  generatePage({ isLoading: true })
+  getListing()
+  $('#pages-my-listings-edit').on('submit', '#listing-edit-form', handleSubmit)
+  $('#pages-my-listings-edit').on('click', '#add-listing-item', handleAddItem)
+  $('#pages-my-listings-edit').on('click', '.delete-item', handleRemoveItem)
+})
+</script>
+
+<%- contentFor('body') %>
+<div id="pages-my-listings-edit" class="container"></div>

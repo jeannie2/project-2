@@ -1,0 +1,70 @@
+<script>
+const replaceDynamicLinks = ({ isLoading, user } = {}) => {
+  if (isLoading) return $('#navbar-dynamic-links').html('loading...')
+
+    // check href below
+    $('#navbar-dynamic-links').html(user ? `
+    <li class="nav-item">
+      <a class="nav-link" href="/my/listings">My Work</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="/my/profile/edit">My Profile</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="/my/listings/new">Create Listing</a>
+    </li>
+    <li class="nav-item">
+      <a id="auth-logout" class="nav-link text-danger" href="#">Logout</a>
+    </li>
+  ` : `
+    <li class="nav-item">
+      <a class="nav-link" href="/auth/signup">Signup</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="/auth/login">Login</a>
+    </li>
+  `)
+}
+
+const getMyProfile = () => {
+  replaceDynamicLinks({ isLoading: true })
+
+  axios({
+    method: 'GET',
+    url: '/api/my/profile',
+  }).then((resp) => {
+    replaceDynamicLinks({ user: resp.data })
+  }).catch(() => {
+    replaceDynamicLinks()
+  })
+}
+
+const handleLogout = (e) => {
+  e.preventDefault()
+
+  axios({
+    method: 'DELETE',
+    url: '/api/auth/logout'
+  }).then(() => {
+    window.location.href = '/' // check
+  })
+}
+
+$(document).ready(() => {
+  getMyProfile()
+  $('body').on('click', '#auth-logout', handleLogout)
+})
+</script>
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="/wishlists">Home</a> <!-- update href -->
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar-links">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbar-links">
+      <ul id="navbar-dynamic-links" class="navbar-nav ms-auto mb-2 mb-lg-0"></ul>
+    </div>
+  </div>
+</nav>

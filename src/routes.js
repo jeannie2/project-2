@@ -1,8 +1,8 @@
 import { Router } from 'express'
 
-const router = Router()
+import authenticateUser from './_middlewares/authenticate-user.js'
 
-export default router
+const router = Router()
 
 // API | AUTH
 router.post('/api/auth/signup', (await import('./controllers/api/auth/signup.js')).default)
@@ -20,17 +20,17 @@ router.get('/api/my/listings/:id', authenticateUser('json'), (await import('./co
 router.put('/api/my/listings/:id', authenticateUser('json'), (await import('./controllers/api/my/listings/update.js')).default)
 router.delete('/api/my/listings/:id', authenticateUser('json'), (await import('./controllers/api/my/listings/destroy.js')).default)
 
-// API | LISTINGS
+// API | LISTINGS ----- CHECK
 router.get('/api/halls/:hallId', (await import('./controllers/api/halls/index.js')).default) // (await import('./controllers/api/halls/hallId/index.js')).default)
 router.get('/api/halls/:hallId/:artId', (await import('./controllers/api/halls/show.js')).default) // (await import('./controllers/api/halls/hallId/artId/index.js')).default) . not show.js
 
-// API | ARTIST
+// API | ARTIST ----- CHECK
 router.get('/api/artists/:artistId', (await import('./controllers/api/artists/show.js')).default) //  (await import('./controllers/api/artistId/index.js')).default)
 
 // API | HOME
 router.use('/api', (await import('./controllers/api/home.js')).default)
 
-// API | NOT FOUND
+// API | NOT FOUND   ----  CHECK
 router.use('/api', (await import('./controllers/api/not-found.js')).default) // can be same route / as home?
 
 /// ///////////////////////////////////////////////////////
@@ -60,3 +60,5 @@ router.get('/', (await import('./controllers/pages/home.js')).default) // correc
 
 // PAGES | NOT FOUND
 router.use('/', (await import('./controllers/pages/not-found.js')).default) // can be same route / as home?
+
+export default router

@@ -1,0 +1,79 @@
+<%- contentFor('styles') %>
+<%- contentFor('scripts') %>
+<script>
+const id = window.location.href.split('/').reverse()[0]
+
+const generateTitle = ({ isLoading, listing } = {}) => {
+  if (isLoading) return `<div class="text-center">Loading...</div>`
+  if (!listing) return `<h1 class="text-center mb-3">Listing ${id} Not Found!</h1>`
+
+  return `<h1 class="text-center mb-3">Listing ${id}</h1>`
+}
+
+// add artist? delete ul list-group?
+const generateListing = ({ isLoading, listing } = {}) => {
+  if (isLoading || !listing) return ''
+
+  return `
+    <div class="row">
+      <div class="col-12 col-md-10 offset-md-1 col-lg-8 offset-lg-2">
+        <div class="card">
+          <div class="card-body text-center">
+            <img class="mb-2" src="${listing.user.avatar}" alt="user avatar" width="150" />
+            <h5 class="card-title mb-2">${listing.title}</h5>
+            <p class="card-text mb-2">${listing.description}</p>
+
+            <div class="mb-2">
+              <a href="/my/listings/${id}/edit" class="btn btn-light btn-sm">Edit</a>
+              <button id="delete-listing" class="btn btn-danger btn-sm">Delete</button>
+            </div>
+
+            <ul class="list-group">
+              ${listing.items.map((item) => `<li class="list-group-item ${item.checked && 'text-decoration-line-through'}">${item.name}</li>`).join('')}
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  `
+}
+
+const generatePage = (info) => {
+  const $page = $('#pages-my-listings-show')
+  const $title = generateTitle(info)
+  const $listing = generateListing(info)
+
+  $page.html('').append($title).append($listing)
+}
+
+const getListing = () => {
+  axios({
+    method: 'GET',
+    url: `/api/my/listings/${id}`
+  }).then((resp) => {
+    generatePage({ listing: resp.data })
+  }).catch((err) => {
+    generatePage()
+  })
+}
+
+const handleDelete = (e) => {
+  $(e.currentTarget).attr('disabled', true)
+
+  axios({
+    method: 'DELETE',
+    url: `/api/my/listings/${id}` // check
+  }).then((resp) => {
+    window.location.href = '/my/listings'  // check
+  })
+}
+
+$(document).ready(() => {
+  generatePage({ isLoading: true })
+  getListing()
+  $('#pages-my-listings-show').on('click', '#delete-listing', handleDelete)
+})
+</script>
+
+<%- contentFor('body') %>
+<div id="pages-my-listings-show" class="container"></div>
