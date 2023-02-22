@@ -1,5 +1,5 @@
 const controllersPagesAllHalls = async (req, res) => {
-  res.render('home') // check
+  res.render('allHalls') // check
 }
 
 export default controllersPagesAllHalls

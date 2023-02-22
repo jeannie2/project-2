@@ -68,7 +68,9 @@ const handleLogin = (e) => {
 $(document).ready(() => {
   generatePage()
   $('#pages-auth-login').on('submit', '#login-form', handleLogin)
+  $(".navbar").hide();
 })
+
 </script>
 
 <%- contentFor('body') %>

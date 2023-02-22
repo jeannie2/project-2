@@ -23,15 +23,17 @@ const generateListing = ({ isLoading, listing } = {}) => {
             <h5 class="card-title mb-2">${listing.title}</h5>
             <p class="card-text mb-2">${listing.description}</p>
 
-            <ul class="list-group">
-              ${listing.items.map((item) => `<li class="list-group-item ${item.checked && 'text-decoration-line-through'}">${item.name}</li>`).join('')}
-            </ul>
+
           </div>
         </div>
       </div>
     </div>
   `
 }
+
+/*   <ul class="list-group">
+              ${listing.items.map((item) => `<li class="list-group-item ${item.checked && 'text-decoration-line-through'}">${item.name}</li>`).join('')}
+            </ul> */
 
 const generatePage = (info) => {
   const $page = $('#pages-listings-show')

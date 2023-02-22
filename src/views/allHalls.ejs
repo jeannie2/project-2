@@ -1,0 +1,42 @@
+<%- contentFor('styles') %>
+
+<style>
+.container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%)
+}
+</style>
+<%- contentFor('scripts') %>
+<%- contentFor('body') %>
+      <div class="container" id="galleries">
+        <div class="row text-center border border-dark" id="hallMain">
+          <div class="col-12">
+            <h1 class="display-3">
+              <a href="/halls/hall">Main Exhibition</a>
+            </h1>
+          </div>
+        </div>
+
+        <div class="row text-center border border-dark" id="hallA">
+          <div class="col-12">
+            <h1 class="display-3">
+              <a href="/halls/hallA">Hall A</a>
+            </h1>
+          </div>
+        </div>
+
+        <div class="row text-center border border-dark" id="hallB">
+          <div class="col-12">
+            <h1 class="display-3">
+              <a href="/halls/hallB">Hall B</a>
+            </h1>
+          </div>
+        </div>
+      </div>
+
+  <script>
+    $(".navbar").hide();
+
+  </script>
