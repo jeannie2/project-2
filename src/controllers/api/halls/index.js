@@ -4,6 +4,8 @@ import handleErrors from '../../_helpers/handle-errors.js'
 const controllersApiListingsIndex = async (req, res) => {
   try {
     // Filters
+    const { params: { hallId } } = req
+
     const q = req.query.q || ''
     const orderBy = req.query.orderBy || 'id'
     const sortBy = req.query.sortBy || 'asc'
@@ -16,6 +18,7 @@ const controllersApiListingsIndex = async (req, res) => {
 
     // Common Where Query
     const where = {
+      hallId: { hallId },
       OR: [
         {
           title: {

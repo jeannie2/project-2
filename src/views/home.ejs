@@ -1,11 +1,23 @@
 <%- contentFor('styles') %>
 <style>
-
+body {
+  background-color: black;
+}
 .container {
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%)
+}
+
+h1, h2 {
+  color: white;
+}
+a {
+  color: white;
+  text-decoration: none;
+  font-size: 1.5rem;
+  font-weight: bold;
 }
 
 </style>
@@ -14,7 +26,9 @@
 
   <div id="home" class="container">
   <div class="row text-center">
-    <h1>Welcome </h1>
+    <h1>Welcome</h1>
+    </div>
+    <div class="row text-center">
     <div class="col border">
     <h2>Visitors </h2><br>
       <a href="/allHalls">Enter</a>
@@ -22,7 +36,7 @@
 
     <div class="col border">
     <h2>Exhibitors </h2><br>
-      <a href="auth/login">Login </a>
+      <a href="auth/login" class="mx-2">Login </a>
       <a href="auth/signup">Sign up </a>
     </div>
   </div>

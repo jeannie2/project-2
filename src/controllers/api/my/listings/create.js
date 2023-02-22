@@ -6,10 +6,12 @@ import handleErrors from '../../../_helpers/handle-errors.js'
 const createSchema = yup.object({
   title: yup.string().required(),
   description: yup.string().required(),
-  items: yup.array().of(yup.object({
+  hallId: yup.string().required(), // how pass as param?
+  link: yup.string().required()
+  /* listings: yup.array().of(yup.object({ // items:
     name: yup.string().required().label('name'),
     hallId: yup.string().required().label('hallId') // need label?
-  }))
+  })) */
 })
 
 const controllersApiMyListingsCreate = async (req, res) => {
@@ -19,10 +21,10 @@ const controllersApiMyListingsCreate = async (req, res) => {
     const newListing = await prisma.listing.create({
       data: {
         userId,
-        ...verifiedData,
-        items: {
+        ...verifiedData /* , */
+        /* items: {
           create: verifiedData?.items
-        }
+        } */
       }
     })
     return res.status(201).json(newListing)

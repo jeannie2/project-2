@@ -94,11 +94,13 @@ const generateListings = ({ isLoading, listings = [] } = {}) => {
   if (listings.length === 0) {
     return `
       <h2 class="text-center mb-3">No Listing Found!</h2>
-      <div class="text-center">
-        <a class="btn btn-light" href="/my/listings/new">Create New Listing!</a>
-      </div>
+
     `
   }
+
+/*       <div class="text-center">
+        <a class="btn btn-light" href="/my/listings/new">Create New Listing!</a>
+      </div> */
 
   return `
     <div class="row">

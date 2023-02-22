@@ -1,5 +1,6 @@
 const controllersPagesHallsIndex = async (req, res) => {
-  res.render('halls/index')
+  const { params: { hallId } } = req
+  res.render(`halls/${hallId}`)
 }
 
 export default controllersPagesHallsIndex

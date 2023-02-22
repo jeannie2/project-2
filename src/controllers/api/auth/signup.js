@@ -20,7 +20,10 @@ const signupSchema = yup.object({
   }),
   password: yup.string().min(6).required(),
   passwordConfirmation: yup.string().oneOf([yup.ref('password'), null], 'Passwords must match').required(),
-  avatar: yup.mixed()
+  name: yup.string().required(),
+  avatar: yup.mixed().required(),
+  bio: yup.string().min(6).required(),
+  link: yup.string().url().required()
 })
 
 const controllersApiAuthSignup = async (req, res) => {
@@ -33,7 +36,10 @@ const controllersApiAuthSignup = async (req, res) => {
       data: {
         email: verifiedData.email,
         avatar: verifiedData.avatar || 'https://lab-restful-api.s3.ap-northeast-2.amazonaws.com/profile.jpeg',
-        passwordHash: await bcrypt.hash(verifiedData.password, 10)
+        passwordHash: await bcrypt.hash(verifiedData.password, 10),
+        name: verifiedData.name,
+        bio: verifiedData.bio,
+        link: verifiedData.link
       }
     })
 

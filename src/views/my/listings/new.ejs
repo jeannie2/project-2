@@ -60,28 +60,32 @@ const generateForm = ({ listing, errors } = {}) => {
           </div>
 
           <div class="mb-3">
-            <label for="listing-link" class="form-label">Link to work </label>
-            <textarea
+            <label for="listing-link" class="form-label">Link to work</label>
+            <input
               id="listing-link"
               class="form-control ${errors?.link && 'is-invalid'}"
               name="link"
-              rows="3"
-            >${listing?.link || ''}</textarea>
+              value="${listing?.link || ''}"
+            ></input>
             <div class="invalid-feedback">${errors?.link || ''}</div>
           </div>
 
+        <div class="mb-3">
           <div class="form-check form-check-inline">
             <input class="form-check-input" type="radio" name="hallMain" id="inlineRadio1" value="hallMain">
-            <label class="form-check-label" for="inlineRadio1">Main Exhibition/label>
+            <label class="form-check-label" for="inlineRadio1">Main Exhibition</label>
           </div>
           <div class="form-check form-check-inline">
             <input class="form-check-input" type="radio" name="hallA" id="inlineRadio2" value="hallA">
             <label class="form-check-label" for="inlineRadio2">Hall A</label>
           </div>
           <div class="form-check form-check-inline">
-            <input class="form-check-input" type="radio" name="hallB" id="inlineRadio2" value="hallB">
-            <label class="form-check-label" for="inlineRadio2">Hall B</label>
+            <input class="form-check-input" type="radio" name="hallB" id="inlineRadio3" value="hallB">
+            <label class="form-check-label" for="inlineRadio3">Hall B</label>
           </div>
+
+          </div>
+
           <button class="btn btn-light" type="submit">Submit</button>
         </form>
       </div>
