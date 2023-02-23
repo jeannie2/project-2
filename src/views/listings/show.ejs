@@ -1,7 +1,7 @@
 <%- contentFor('styles') %>
 <%- contentFor('scripts') %>
 <script>
-const id = window.location.pathname.split('/').reverse()[0]
+const id = window.location.href.split('/').reverse()[0] //href vs pathname?
 
 const generateTitle = ({ isLoading, listing } = {}) => {
   if (isLoading) return `<div class="text-center">Loading...</div>`
@@ -10,28 +10,27 @@ const generateTitle = ({ isLoading, listing } = {}) => {
   return `<h1 class="text-center mb-3">Listing ${id}</h1>`
 }
 
-      // add artist name as well? delete list group
-      const generateListing = ({ isLoading, listing } = {}) => {
-        if (isLoading || !listing) return ''
+// add artist name as well? delete list group
+const generateListing = ({ isLoading, listing } = {}) => {
+  if (isLoading || !listing) return ''
 
-        return `
+  return `
     <div class="row">
       <div class="col-12 col-md-10 offset-md-1 col-lg-8 offset-lg-2">
         <div class="card">
           <div class="card-body text-center">
-            <a href="artists/${user.id}">
+            <a href="artists/${listing.user.id}">
             <img class="mb-2" src="${listing.user.avatar}" alt="user avatar" width="150" />
             </a>
+            <iframe class="mb-2" src="${listing.link}"></iframe>
             <h5 class="card-title mb-2">${listing.title}</h5>
             <p class="card-text mb-2">${listing.description}</p>
-
-
           </div>
         </div>
       </div>
     </div>
   `
-      }
+}
 
       /* <div> <div class="row"><div class="col"><iframe class="mb-2" src="${listing.link}"</div><div class="col"></div> */
 
@@ -39,30 +38,30 @@ const generateTitle = ({ isLoading, listing } = {}) => {
               ${listing.items.map((item) => `<li class="list-group-item ${item.checked && 'text-decoration-line-through'}">${item.name}</li>`).join('')}
             </ul> */
 
-      const generatePage = (info) => {
-        const $page = $('#pages-listings-show')
-        const $title = generateTitle(info)
-        const $listing = generateListing(info)
+const generatePage = (info) => {
+  const $page = $('#pages-listings-show')
+  const $title = generateTitle(info)
+  const $listing = generateListing(info)
 
-        $page.html('').append($title).append($listing)
-      }
+  $page.html('').append($title).append($listing)
+}
 
-      const getListing = () => {
-        axios({
-          method: 'GET',
-          url: `/api/halls/${id}` // update
-        }).then((resp) => {
-          generatePage({ listing: resp.data })
-        }).catch((err) => {
-          generatePage()
-        })
-      }
+const getListing = () => {
+  axios({
+    method: 'GET',
+    url: `/api/listings/${id}` // update
+  }).then((resp) => {
+    generatePage({ listing: resp.data })
+  }).catch((err) => {
+    generatePage()
+  })
+}
 
-      $(document).ready(() => {
-        generatePage({ isLoading: true })
-        getListing()
-      })
-    </script>
+$(document).ready(() => {
+  generatePage({ isLoading: true })
+  getListing()
+})
+</script>
 
-    <%- contentFor('body') %>
-      <div id="pages-listings-show" class="container"></div>
+<%- contentFor('body') %>
+<div id="pages-listings-show" class="container"></div>

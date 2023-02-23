@@ -5,7 +5,7 @@ const generateTitle = () => {
   return '<h1 class="text-center mb-3">New Listing</h1>'
 }
 
-const generateItemInputs = (values, errors) => {
+/* const generateItemInputs = (values, errors) => {
   const items = values?.items || []
   const itemsErrs = errors?.items || []
 
@@ -29,7 +29,7 @@ const generateItemInputs = (values, errors) => {
       </div>
     `
   }).join('')
-}
+} */
 
 // update input, delete items div, add artist?
 const generateForm = ({ listing, errors } = {}) => {
@@ -65,6 +65,7 @@ const generateForm = ({ listing, errors } = {}) => {
               id="listing-link"
               class="form-control ${errors?.link && 'is-invalid'}"
               name="link"
+              type="url"
               value="${listing?.link || ''}"
             ></input>
             <div class="invalid-feedback">${errors?.link || ''}</div>
@@ -72,15 +73,15 @@ const generateForm = ({ listing, errors } = {}) => {
 
         <div class="mb-3">
           <div class="form-check form-check-inline">
-            <input class="form-check-input" type="radio" name="hallMain" id="inlineRadio1" value="hallMain">
+            <input class="form-check-input" type="radio" name="hallId" id="radio1" value="hallMain">
             <label class="form-check-label" for="inlineRadio1">Main Exhibition</label>
           </div>
           <div class="form-check form-check-inline">
-            <input class="form-check-input" type="radio" name="hallA" id="inlineRadio2" value="hallA">
+            <input class="form-check-input" type="radio" name="hallId" id="radio2" value="hallA">
             <label class="form-check-label" for="inlineRadio2">Hall A</label>
           </div>
           <div class="form-check form-check-inline">
-            <input class="form-check-input" type="radio" name="hallB" id="inlineRadio3" value="hallB">
+            <input class="form-check-input" type="radio" name="hallId" id="radio3" value="hallB">
             <label class="form-check-label" for="inlineRadio3">Hall B</label>
           </div>
 
@@ -130,7 +131,7 @@ const handleSubmit = (e) => {
 
 const handleAddItem = () => {
   const data = parseFormData(new FormData($('#listing-new-form')[0]))
-  data.items = [...data?.items || [], { name: '', checked: false }]
+  // data.items = [...data?.items || [], { name: '', checked: false }]
 
   generatePage({ listing: data })
 }

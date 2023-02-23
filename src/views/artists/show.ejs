@@ -1,7 +1,7 @@
 <%- contentFor('styles') %>
 <%- contentFor('scripts') %>
 <script>
-const id = window.location.pathname.split('/').reverse()[0] //delete?
+const id = window.location.href.split('/').reverse()[0] //delete?
 
 const generateTitle = ({ isLoading, user } = {}) => {
   if (isLoading) return `<div class="text-center">Loading...</div>`
@@ -24,7 +24,7 @@ if (isLoading || !user) return ''
             </a>
             <h5 class="card-title mb-2">${user.name}</h5>
             <p class="card-text mb-2">${user.bio}</p>
-            <a href=${user.website}</a>
+            <a href=${user.link}</a>
           </div>
         </div>
       </div>
@@ -36,29 +36,29 @@ if (isLoading || !user) return ''
               ${listing.items.map((item) => `<li class="list-group-item ${item.checked && 'text-decoration-line-through'}">${item.name}</li>`).join('')}
             </ul> */
 
-      const generatePage = (info) => {
-        const $page = $('#pages-artist-show')
-        const $title = generateTitle(info)
-        const $profile = generateArtistProfile(info)
+const generatePage = (info) => {
+  const $page = $('#pages-artist-show')
+  const $title = generateTitle(info)
+  const $profile = generateArtistProfile(info)
 
-        $page.html('').append($title).append($profile)
-      }
+  $page.html('').append($title).append($profile)
+}
 
-      const getProfile = () => {
-        axios({
-          method: 'GET',
-          url: `/api/artists/${id}` // update
-        }).then((resp) => {
-          generatePage({ user: resp.data })
-        }).catch((err) => {
-          generatePage()
-        })
-      }
+const getProfile = () => {
+  axios({
+    method: 'GET',
+    url: `/api/artists/${id}` // update
+  }).then((resp) => {
+    generatePage({ user: resp.data })
+  }).catch((err) => {
+    generatePage()
+  })
+}
 
-      $(document).ready(() => {
-        generatePage({ isLoading: true })
-        getProfile()
-      })
+$(document).ready(() => {
+  generatePage({ isLoading: true })
+  getProfile()
+})
 </script>
 
 <%- contentFor('body') %>

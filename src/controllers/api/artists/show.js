@@ -8,7 +8,7 @@ const controllersApiArtistsShow = async (req, res) => { /// HOW TO UPDATE THIS P
       where: { id: Number(id) },
       rejectOnNotFound: true,
       include: {
-        items: true,
+        // items: true,
         user: {
           select: {
             avatar: true

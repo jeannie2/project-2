@@ -6,6 +6,19 @@ const generateForm = ({ user, errors } = {}) => {
     <div class="row">
       <div id="form-wrapper" class="col-12 col-md-10 offset-md-1 col-lg-8 offset-lg-2">
         <form id="signup-form">
+
+          <div class="mb-3">
+            <label for="user-name" class="form-label">Name</label>
+            <input
+              id="user-name"
+              class="form-control ${errors?.name && 'is-invalid'}"
+              name="name"
+              value="${user?.name || ''}"
+              type="text"
+            ></input>
+            <div class="invalid-feedback">${errors?.name || ''}</div>
+          </div>
+
           <div class="mb-3">
             <label for="user-email" class="form-label">Email</label>
             <input
@@ -44,27 +57,27 @@ const generateForm = ({ user, errors } = {}) => {
 
           <div class="mb-3">
             <label for="user-bio" class="form-label">Bio</label>
-            <textarea
+            <input
               id="user-bio"
               class="form-control ${errors?.bio && 'is-invalid'}"
               name="bio"
               value="${user?.bio || ''}"
-              type="password"
+              type="text"
               rows="3"
-            ></textarea>
+            ></input>
             <div class="invalid-feedback">${errors?.bio || ''}</div>
           </div>
 
           <div class="mb-3">
-            <label for="user-website" class="form-label">Website URL</label>
+            <label for="user-link" class="form-label">Website URL</label>
             <input
-              id="user-website"
-              class="form-control ${errors?.website && 'is-invalid'}"
-              name="website"
-              value="${user?.website || ''}"
+              id="user-link"
+              class="form-control ${errors?.link && 'is-invalid'}"
+              name="link"
+              value="${user?.link || ''}"
               type="url"
             ></input>
-            <div class="invalid-feedback">${errors?.website || ''}</div>
+            <div class="invalid-feedback">${errors?.link || ''}</div>
           </div>
 
           <div class="mb-3">

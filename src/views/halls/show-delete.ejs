@@ -1,7 +1,7 @@
 <%- contentFor('styles') %>
 <%- contentFor('scripts') %>
 <script>
-const id = window.location.pathname.split('/').reverse()[0]
+const id = window.location.href.split('/').reverse()[0]
 
 const generateTitle = ({ isLoading, listing } = {}) => {
   if (isLoading) return `<div class="text-center">Loading...</div>`
@@ -22,8 +22,6 @@ const generateListing = ({ isLoading, listing } = {}) => {
             <img class="mb-2" src="${listing.user.avatar}" alt="user avatar" width="150" />
             <h5 class="card-title mb-2">${listing.title}</h5>
             <p class="card-text mb-2">${listing.description}</p>
-
-
           </div>
         </div>
       </div>

@@ -35,8 +35,14 @@ const generateForm = ({ user, errors } = {}) => {
 
           <div class="mb-3">
             <label for="user-bio" class="form-label">Bio</label>
-            <textarea id="user-bio" class="form-control ${errors?.bio && 'is-invalid'}" name="bio" rows="3" value="${user?.bio || ''}" type="text"></textarea>
+            <input id="user-bio" class="form-control ${errors?.bio && 'is-invalid'}" name="bio" rows="3" value="${user?.bio || ''}" type="text"></input>
             <div class="invalid-feedback">${errors?.bio || ''}</div>
+          </div>
+
+          <div class="mb-3">
+            <label for="user-link" class="form-label">Website link</label>
+            <input id="user-link" class="form-control ${errors?.link && 'is-invalid'}" name="link" rows="3" value="${user?.link || ''}" type="url"></input>
+            <div class="invalid-feedback">${errors?.link || ''}</div>
           </div>
 
           <div class="mb-3">
@@ -46,12 +52,6 @@ const generateForm = ({ user, errors } = {}) => {
             </div>
             <input id="user-avatar" class="form-control" name="avatar" type="file"></input>
             <div class="invalid-feedback">${errors?.avatar || ''}</div>
-          </div>
-
-          <div class="mb-3">
-            <label for="user-link" class="form-label">Website link</label>
-            <input id="user-link" class="form-control ${errors?.link && 'is-invalid'}" name="link" rows="3" value="${user?.link || ''}" type="url"></input>
-            <div class="invalid-feedback">${errors?.link || ''}</div>
           </div>
 
           <div class="mb-3 pt-3 border-top border-dark">
