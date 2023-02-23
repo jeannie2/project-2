@@ -6,11 +6,12 @@ import checkOwnership from './_check-ownership.js'
 
 const updateSchema = yup.object({
   title: yup.string().required(),
-  description: yup.string().required(),
+  description: yup.string().required()
+/*
   items: yup.array().of(yup.object({
     name: yup.string().required().label('name'),
     hallId: yup.string().required().label('hallId') // need label?
-  }))
+  })) */
 })
 
 const controllersApiListingsUpdate = async (req, res) => {
@@ -20,11 +21,11 @@ const controllersApiListingsUpdate = async (req, res) => {
     const updated = await prisma.wishlist.update({
       where: { id: Number(id) },
       data: {
-        ...verifiedData,
-        items: {
+        ...verifiedData
+        /* items: {
           deleteMany: {},
           create: verifiedData?.items
-        }
+        } */
       }
     })
     return res.status(200).json(updated)

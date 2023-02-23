@@ -91,6 +91,7 @@ const generateListing = (listing) => {
 // check href
 const generateListings = ({ isLoading, listings = [] } = {}) => {
   if (isLoading) return `<div class="text-center mb-3">Loading...</div>`
+  console.log(listings)
   if (listings.length === 0) {
     return `
       <h2 class="text-center mb-3">No Listing Found!</h2>
@@ -118,20 +119,19 @@ const generatePage = (info) => {
   const $title = generateTitle(info)
   const $filter = generateFilter(info)
   const $listings = generateListings(info)
-  // const $pagination = generatePagination(info)
+  //const $pagination = generatePagination(info)
 
-  $page.html('').append($title).append($filter).append($listings)// .append($pagination)
+  $page.html('').append($title).append($filter).append($listings)// .append($pagination)// .append($pagination)
 }
 
 $(document).ready(() => {
   generatePage({ isLoading: true })
-
   axios({
     method: 'GET',
     url: '/api/my/listings' // check
   }).then((resp) => {
-    generatePage({ listings: resp.data.listings })
-    // generatePage({ listings: resp.data.listings, meta: resp.data.meta })
+    generatePage({ listings: resp.data}) //resp.data.listings
+    ///generatePage({ listings: resp.data.listings, meta: resp.data.meta })
   })
 
   // On Filter Submit
@@ -146,8 +146,9 @@ $(document).ready(() => {
       url: '/api/my/listings', // check
       params: queries
     }).then((resp) => {
-      generatePage({ listings: resp.data.listings, queries })
-      // generatePage({ wishlists: resp.data.wishlists, meta: resp.data.meta, queries })
+      generatePage({ listings: resp.data, queries })
+      //generatePage({ listings: resp.data.listings, queries })
+      //generatePage({ listings: resp.data.listings, meta: resp.data.meta, queries })
     })
   })
 
@@ -159,8 +160,9 @@ $(document).ready(() => {
       method: 'GET',
       url: `/api/my/listings` // check
     }).then((resp) => {
-      generatePage({ listings: resp.data.listings })
-      // generatePage({ wishlists: resp.data.wishlists, meta: resp.data.meta })
+      generatePage({ listings: resp.data }) //updated
+      // generatePage({ listings: resp.data.listings })
+      //generatePage({ listings: resp.data.listings, meta: resp.data.meta })
     })
   })
 
@@ -180,8 +182,10 @@ $(document).ready(() => {
         page
       }
     }).then((resp) => {
-      generatePage({ listings: resp.data.listings, queries })
-      // generatePage({ wishlists: resp.data.wishlists, meta: resp.data.meta, queries })
+    generatePage({ listings: resp.data, queries })
+     // generatePage({ listings: resp.data.listings, queries })
+      // console.log(resp) // resp.data
+     // generatePage({ listings: resp.data.listings, meta: resp.data.meta, queries })
     })
   })
 })

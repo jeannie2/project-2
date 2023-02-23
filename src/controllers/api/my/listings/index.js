@@ -31,10 +31,10 @@ const controllersApiMyListingsIndex = async (req, res) => {
       ]
     }
 
-    // const totalMyWishlists = await prisma.wishlist.count({ where })
+    // const totalMyListings = await prisma.wishlist.count({ where })
     const foundMyListings = await prisma.listing.findMany({
       // take,
-      // skip,
+    //  skip,
       where,
       orderBy: {
         [orderBy]: sortBy
@@ -50,8 +50,8 @@ const controllersApiMyListingsIndex = async (req, res) => {
 
     return res.status(200).json(foundMyListings)
     /* return res.status(200).json({
-      wishlists: foundMyWishlists,
-      meta: { currentPage: page, totalPages: Math.ceil(totalMyWishlists / take) }
+      listings: foundMyListings,
+      meta: { currentPage: page, totalPages: Math.ceil(totalMyListings / take) }
     }) */
   } catch (err) {
     return handleErrors(res, err)
