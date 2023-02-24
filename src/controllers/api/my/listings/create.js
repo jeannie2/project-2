@@ -8,6 +8,7 @@ const createSchema = yup.object({
   description: yup.string().required(),
   hallId: yup.string().required(), // how pass as param?
   linkIframe: yup.string().required() // url()?
+  // image: yup.mixed().required()
   /* listings: yup.array().of(yup.object({ // items:
     name: yup.string().required().label('name'),
     hallId: yup.string().required().label('hallId') // need label?

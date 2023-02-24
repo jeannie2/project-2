@@ -6,9 +6,9 @@ import checkOwnership from './_check-ownership.js'
 
 const updateSchema = yup.object({
   title: yup.string().required(),
-  description: yup.string().required(),
-  hallId: yup.string().required(), // how pass as param?
-  linkIframe: yup.string().url().required()
+  description: yup.string().required()
+  // hallId: yup.string().required(), // how pass as param? COMMENTED
+  // linkIframe: yup.string().url().required() COMMENTED
 /*
   items: yup.array().of(yup.object({
     name: yup.string().required().label('name'),
@@ -20,7 +20,7 @@ const controllersApiListingsUpdate = async (req, res) => {
   try {
     const { params: { id }, body } = req
     const verifiedData = await updateSchema.validate(body, { abortEarly: false, stripUnknown: true })
-    const updated = await prisma.wishlist.update({
+    const updated = await prisma.listing.update({
       where: { id: Number(id) },
       data: {
         ...verifiedData

@@ -11,7 +11,7 @@ const controllersApiListingsShow = async (req, res) => {
       //  items: true,
         user: {
           select: {
-            avatar: true // need?
+            avatar: true// need?
           }
         }
       }
