@@ -6,7 +6,9 @@ import checkOwnership from './_check-ownership.js'
 
 const updateSchema = yup.object({
   title: yup.string().required(),
-  description: yup.string().required()
+  description: yup.string().required(),
+  hallId: yup.string().required(), // how pass as param?
+  linkIframe: yup.string().url().required()
 /*
   items: yup.array().of(yup.object({
     name: yup.string().required().label('name'),

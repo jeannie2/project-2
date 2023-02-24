@@ -39,9 +39,10 @@ const controllersApiAuthSignup = async (req, res) => {
         passwordHash: await bcrypt.hash(verifiedData.password, 10),
         bio: verifiedData.bio,
         link: verifiedData.link,
-        avatar: verifiedData.avatar || 'https://lab-restful-api.s3.ap-northeast-2.amazonaws.com/profile.jpeg'
+        avatar: verifiedData.avatar
       }
     })
+    // || 'https://lab-restful-api.s3.ap-northeast-2.amazonaws.com/profile.jpeg'
 
     req.session.user = { id: newUser.id, email: newUser.email }
     await req.session.save()

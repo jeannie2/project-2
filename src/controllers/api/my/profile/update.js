@@ -7,9 +7,10 @@ import handleErrors from '../../../_helpers/handle-errors.js'
 import uploadFileAsync from '../../../_helpers/upload-file.js'
 
 const updateSchema = yup.object({
+  name: yup.string().required(),
   email: yup.string().email().required().test({
     message: () => 'Email already exists',
-    test: async (value, { email: originalEmail }) => {
+    test: async (value, { options: { context: { email: originalEmail } } }) => {
       if (value === originalEmail) return true
       try {
         await prisma.user.findUnique({ where: { email: value }, rejectOnNotFound: true })
@@ -25,6 +26,8 @@ const updateSchema = yup.object({
     (password) => !password || password.length >= 6
   ),
   passwordConfirmation: yup.string().oneOf([yup.ref('password'), null], 'Passwords must match'),
+  bio: yup.string().min(6).required(), // added
+  link: yup.string().url().required(),
   avatar: yup.mixed()
 })
 
@@ -38,8 +41,11 @@ const controllersApiMyProfileUpdate = async (req, res) => {
     const updatedUser = await prisma.user.update({
       where: { id },
       data: {
-        email: verifiedData.email,
-        avatar: verifiedData.avatar || currentUser.avatar || 'https://lab-restful-api.s3.ap-northeast-2.amazonaws.com/profile.jpeg',
+        name: verifiedData.name, // added
+        bio: verifiedData.bio, // added
+        link: verifiedData.link, // added
+        email: verifiedData.email, // added
+        avatar: verifiedData.avatar || currentUser.avatar,
         ...verifiedData.password && { passwordHash: await bcrypt.hash(verifiedData.password, 10) }
       }
     })

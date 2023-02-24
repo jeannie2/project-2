@@ -60,15 +60,15 @@ const generateForm = ({ listing, errors } = {}) => {
           </div>
 
           <div class="mb-3">
-            <label for="listing-link" class="form-label">Link to work</label>
+            <label for="listing-linkIframe" class="form-label">Link to work</label>
             <input
-              id="listing-link"
-              class="form-control ${errors?.link && 'is-invalid'}"
-              name="link"
+              id="listing-linkIframe"
+              class="form-control ${errors?.linkIframe && 'is-invalid'}"
+              name="linkIframe"
               type="url"
-              value="${listing?.link || ''}"
+              value="${listing?.linkIframe || ''}"
             ></input>
-            <div class="invalid-feedback">${errors?.link || ''}</div>
+            <div class="invalid-feedback">${errors?.linkIframe || ''}</div>
           </div>
 
         <div class="mb-3">

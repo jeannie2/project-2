@@ -17,7 +17,8 @@ const controllersApiListingsIndex = async (req, res) => {
 
     // Common Where Query
     const where = {
-      hallId: { hallId },
+      // hallId: { hallId },
+      hallId,
       OR: [
         {
           title: {

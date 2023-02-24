@@ -29,7 +29,7 @@ router.get('/api/halls/:hallId', (await import('./controllers/api/halls/index.js
 router.get('/api/listings/:listingId', (await import('./controllers/api/listings/show.js')).default) // (await import('./controllers/api/halls/hallId/artId/index.js')).default) . not show.js
 
 // API | ARTIST ----- CHECK
-router.get('/api/artists/:artistId', (await import('./controllers/api/artists/show.js')).default) //  (await import('./controllers/api/artistId/index.js')).default)
+router.get('/api/artists/:userId', (await import('./controllers/api/artists/show.js')).default) //  (await import('./controllers/api/artistId/index.js')).default) // artistId
 
 // API | HOME
 router.get('/api', (await import('./controllers/api/home.js')).default)

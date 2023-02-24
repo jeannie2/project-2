@@ -1,7 +1,7 @@
 <%- contentFor('styles') %>
 <%- contentFor('scripts') %>
 <script>
-const id = window.location.href.split('/').reverse()[0]
+const id = window.location.href.split('/').reverse()[1]
 
 const generateTitle = ({ isLoading, listing } = {}) => {
   if (isLoading) return `<div class="text-center">Loading...</div>`
@@ -66,6 +66,35 @@ const generateForm = ({ isLoading, listing, errors } = {}) => {
             >${listing?.description || ''}</textarea>
             <div class="invalid-feedback">${errors?.description || ''}</div>
           </div>
+
+            <div class="mb-3">
+            <label for="listing-linkIframe" class="form-label">Link to work</label>
+            <input
+              id="listing-linkIframe"
+              class="form-control ${errors?.linkIframe && 'is-invalid'}"
+              name="linkIframe"
+              value="${listing?.linkIframe || ''}"
+              type="url"
+            ></input>
+            <div class="invalid-feedback">${errors?.linkIframe || ''}</div>
+          </div>
+
+          <div class="mb-3">
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" name="hallId" id="radio1" value="hallMain">
+            <label class="form-check-label" for="inlineRadio1">Main Exhibition</label>
+          </div>
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" name="hallId" id="radio2" value="hallA">
+            <label class="form-check-label" for="inlineRadio2">Hall A</label>
+          </div>
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" name="hallId" id="radio3" value="hallB">
+            <label class="form-check-label" for="inlineRadio3">Hall B</label>
+          </div>
+
+          </div>
+
           <button class="btn btn-light" type="submit">Submit</button>
         </form>
       </div>
