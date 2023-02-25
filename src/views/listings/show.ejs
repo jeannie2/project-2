@@ -22,7 +22,7 @@ const generateListing = ({ isLoading, listing } = {}) => {
             <a href="/artists/${listing.user.id}">
             <img class="mb-2" src="${listing.user.avatar}" alt="user avatar" width="150" />
             </a>
-            <iframe class="embed-responsive-item" src="${listing.linkIframe}"></iframe>
+            <iframe src="${listing.linkIframe}" frameborder="0" allowfullscreen allow_embedding=true></iframe>
             <h5 class="card-title mb-2">${listing.title}</h5>
             <p class="card-text mb-2">${listing.description}</p>
           </div>
@@ -32,6 +32,7 @@ const generateListing = ({ isLoading, listing } = {}) => {
   `
 }
 
+/*    <iframe src="${listing.linkIframe}?igu=1"></iframe>*/
       /* <div> <div class="row"><div class="col"><iframe class="mb-2" src="${listing.link}"</div><div class="col"></div> */
 
       /*  <ul class="list-group">

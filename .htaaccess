@@ -1,0 +1,4 @@
+<IfModule mod_headers.c>
+Header always set X-Content-Type-Options "nosniff"
+Header set Content-Security-Policy: frame-ancestors 'self' https://websiteIcontrol.ca
+</IfModule>

@@ -63,7 +63,7 @@ router.get('/halls/:hallId', (await import('./controllers/pages/halls/index.js')
 router.get('/listings/:listingId', (await import('./controllers/pages/listings/show.js')).default) // (await import('./controllers/api/halls/hallId/artId/index.js')).default) . not show.js
 
 // PAGES | ARTIST
-router.get('/artists/:artistId', (await import('./controllers/pages/artists/show.js')).default) // not show. artists/artistId?. (await import('./controllers/pages/artistId/index.js')).default)
+router.get('/artists/:userId', (await import('./controllers/pages/artists/show.js')).default) // not show. artists/artistId?. (await import('./controllers/pages/artistId/index.js')).default)
 
 // PAGES | Homepage
 router.get('/', (await import('./controllers/pages/home.js')).default) // correct?

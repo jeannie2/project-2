@@ -1,9 +1,9 @@
 <%- contentFor('styles') %>
 <%- contentFor('scripts') %>
 <script>
-const userId = window.location.href.split('/').reverse()[0] //delete?
-const id = window.location.href.split('/').reverse()[0] //delete?
-console.log(userId)
+// const userId = window.location.href.split('/').reverse()[0] //delete?
+ const id = window.location.href.split('/').reverse()[0] //delete?
+// console.log(userId)
 const generateTitle = ({ isLoading, listing } = {}) => {
   if (isLoading) return `<div class="text-center">Loading...</div>`
   if (!listing) return `<h1 class="text-center mb-3">Artist ${listing.user.name} Not Found!</h1>`
@@ -48,7 +48,7 @@ const generatePage = (info) => {
 const getProfile = () => {
   axios({
     method: 'GET',
-    url: `/api/artists/${userId}` // update
+    url: `/api/artists/${id}` // update
   }).then((resp) => {
     console.log(resp.data)
     generatePage({ listing: resp.data })
