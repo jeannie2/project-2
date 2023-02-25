@@ -20,6 +20,9 @@ const generateListing = ({ isLoading, listing } = {}) => {
       <div class="col-12 col-md-10 offset-md-1 col-lg-8 offset-lg-2">
         <div class="card">
           <div class="card-body text-center">
+            <a href="/artists/${listing.user.id}">
+            <img class="mb-2" src="${listing.user.avatar}" alt="user avatar" width="150" />
+            </a>
             <h5 class="card-title mb-2">${listing.title}</h5>
             <p class="card-text mb-2">${listing.description}</p>
             <iframe src="${listing.linkIframe}?igu=1"></iframe>

@@ -79,13 +79,30 @@ const generateListing = (listing) => {
     <div class="col">
       <a class="card text-body" href="/my/listings/${listing.id}" style="text-decoration: none;">
         <div class="card-body text-center">
+          <img class="mb-2" src="${listing.user.avatar}" alt="user avatar" width="150" />
           <h5 class="card-title mb-2">${listing.title}</h5>
           <p class="card-text mb-2">${listing.description}</p>
+           <iframe class="mb-2" src="${listing.linkIframe}" alt="user linkIframe" width="150"></iframe
         </div>
       </a>
     </div>
   `
 }
+
+  const generateListingAlt = (listing) => {
+    return `
+    <div class="col">
+        <div class="card-body text-center">
+          <a href="https://www.google.com">www.google.com</a>
+          <img class="mb-2" src="${listing.user.avatar}" alt="user avatar" width="150" />
+          <a href="/my/listings/${listing.id}" style="text-decoration: none;">
+          <h5 class="card-title mb-2">${listing.title}</h5>
+           </a>
+          <p class="card-text mb-2">${listing.description}</p>
+        </div>
+    </div>
+  `
+  }
 
 // check href
 const generateListings = ({ isLoading, listings = [] } = {}) => {

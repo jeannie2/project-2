@@ -2,30 +2,30 @@
 <%- contentFor('scripts') %>
 
 <script>
-  const id = window.location.href.split('/').reverse()[0]
 // const userId = window.location.href.split('/').reverse()[0] //delete?
- console.log(id) // undefined
-const generateTitle = ({ isLoading, user } = {}) => {
+ const id = window.location.href.split('/').reverse()[0] //delete?
+// console.log(userId)
+const generateTitle = ({ isLoading, listing } = {}) => {
   if (isLoading) return `<div class="text-center">Loading...</div>`
-  if (!user) return `<h1 class="text-center mb-3">Artist ${user.name} Not Found!</h1>`
+  if (!listing) return `<h1 class="text-center mb-3">Artist ${listing.name} Not Found!</h1>`
 
   return `<h1 class="text-center mb-3">Artist Profile</h1>`
 }
 
 // add artist name as well? delete list group
 // used to be listing.user.avatar, listing.user.name, listing.user.bio, listing.user.link
-const generateArtistProfile = ({ isLoading, user } = {}) => {
-  if (isLoading || !user) return ''
+const generateArtistProfile = ({ isLoading, listing } = {}) => {
+if (isLoading || !listing) return ''
 
   return `
     <div class="row">
       <div class="col-12 col-md-10 offset-md-1 col-lg-8 offset-lg-2">
         <div class="card">
           <div class="card-body text-center">
-            <img class="mb-2" src="${user.avatar}" alt="user avatar" width="150" />
-            <h5 class="card-title mb-2">${user.name}</h5>
-            <p class="card-text mb-2">${user.bio}</p>
-            <a href=${user.link}</a>
+            <img class="mb-2" src="${listing.avatar}" alt="user avatar" width="150" />
+            <h5 class="card-title mb-2">${listing.name}</h5>
+            <p class="card-text mb-2">${listing.bio}</p>
+            <a href=${listing.link}</a>
           </div>
         </div>
       </div>
@@ -33,28 +33,28 @@ const generateArtistProfile = ({ isLoading, user } = {}) => {
   `
 }
 
-/* <a href="www.google.com"></a> */
-//artists/${user.id}"
-/*  <ul class="list-group">
- ${listing.items.map((item) => `<li class="list-group-item ${item.checked && 'text-decoration-line-through'}">${item.name}</li>`).join('')}
-</ul> */
+      /* <a href="www.google.com"></a> */
+      //artists/${user.id}"
+      /*  <ul class="list-group">
+              ${listing.items.map((item) => `<li class="list-group-item ${item.checked && 'text-decoration-line-through'}">${item.name}</li>`).join('')}
+            </ul> */
 
 const generatePage = (info) => {
   const $page = $('#pages-artist-show')
   const $title = generateTitle(info)
+
   const $profile = generateArtistProfile(info)
+
   $page.html('').append($title).append($profile)
 }
 
 const getProfile = () => {
-  //const userId = user.id // wrote new line
   axios({
     method: 'GET',
-    url: `/api/artists/${id}` // update /api/artists/${userId}
+    url: `/api/artists/${id}` // update
   }).then((resp) => {
     console.log(resp.data)
-    console.log(resp.data.id)
-    generatePage({ user: resp.data })
+    generatePage({ listing: resp.data })
   }).catch((err) => {
     generatePage()
   })

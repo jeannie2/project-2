@@ -3,9 +3,11 @@ import handleErrors from '../../_helpers/handle-errors.js'
 
 const controllersApiArtistsShow = async (req, res) => { /// HOW TO UPDATE THIS PART???
   try {
+    // const { params: { userId } } = req
     const { session: { user: { id: userId } } } = req
     // const { params: { artistId } } = req // not id
     // const { user: { id } } = req
+
     const foundListing = await prisma.user.findUnique({ // await prisma.listing.user.findUnique(
       where: { id: Number(userId) }, // not id.  where: { id: Number(artistId) }, // not id
       rejectOnNotFound: true
@@ -19,6 +21,7 @@ const controllersApiArtistsShow = async (req, res) => { /// HOW TO UPDATE THIS P
       } */
     })
     return res.status(200).json(foundListing)
+    // return res.status(200).json(_.omit(foundUser, ['passwordHash']))
   } catch (err) {
     return handleErrors(res, err)
   }

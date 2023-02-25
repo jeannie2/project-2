@@ -1,4 +1,23 @@
 <%- contentFor('styles') %>
+
+<style>
+iframe {
+  position: relative;
+  width: 80%;
+  height: 70%;
+}
+
+.card {
+  margin-top: 20px;
+}
+
+/*.card {
+
+  min-width: 25vw;
+  max-width: 10vw;
+} */
+
+</style>
 <%- contentFor('scripts') %>
 <script>
 const id = window.location.href.split('/').reverse()[0]
@@ -58,16 +77,19 @@ const generateTitle = () => {
       // check href
       const generateListing = (listing) => {
         return `
-    <div class="col">
+       <div class="col-12 col-sm-6 col-lg-3">
       <a class="card text-body" href="/listings/${listing.id}" style="text-decoration: none;">
-        <div class="card-body text-center">
-          <img class="mb-2" src="${listing.user.avatar}" alt="user avatar" width="150" />
+              <div class="card-body text-center">
+          <iframe class="mb-2" src="${listing.linkIframe}" alt="user linkIframe" width="150"></iframe
+            </div>
+         <div class="card-body text-center">
+            <img class="mb-2" src="${listing.user.avatar}" alt="user avatar" width="50" height="50" />
           <h5 class="card-title mb-2">${listing.title}</h5>
           <p class="card-text mb-2">${listing.description}</p>
-          <iframe class="mb-2" src="${listing.linkIframe}" alt="user linkIframe" width="150"></iframe
+        </div>
         </div>
       </a>
-    </div>
+</div>
   `
       }
 
@@ -80,17 +102,20 @@ const generateTitle = () => {
         }
 
         return `
-    <div class="row">
-      <div class="col-12 col-md-10 offset-md-1 col-lg-8 offset-lg-2">
-        <div id="listings-list" class="row row-cols-1 g-3">
+         <div id="main" class="container p-3">
+         <div class="row">
           ${listings.map(generateListing).join('')}
         </div>
-      </div>
+          </div>
     </div>
   `
       }
 
       /*
+        <div class="col-12 col-sm-6 col-lg-3">
+        <div class="card">
+      <a class="card t
+
       const generatePagination = (isLoading, { currentPage = 1, totalPages = 1 } = {}) => {
               if (isLoading) return ''
 

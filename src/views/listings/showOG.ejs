@@ -1,0 +1,116 @@
+<%- contentFor('styles') %>
+<%- contentFor('scripts') %>
+<script type="module" src="https://unpkg.com/x-frame-bypass"></script>
+<script>
+const id = window.location.href.split('/').reverse()[0] //href vs pathname?
+
+const generateTitle = ({ isLoading, listing } = {}) => {
+  if (isLoading) return `<div class="text-center">Loading...</div>`
+  if (!listing) return `<h1 class="text-center mb-3">Listing ${id} Not Found!</h1>`
+
+  return `<h1 class="text-center mb-3">Listing ${id}</h1>`
+}
+
+// add artist name as well? delete list group
+const generateListing = ({ isLoading, listing } = {}) => {
+  if (isLoading || !listing) return ''
+
+  return `
+    <div class="row">
+      <div class="col-12 col-md-10 offset-md-1 col-lg-8 offset-lg-2">
+        <div class="card">
+          <div class="card-body text-center">
+            <a href="/artists/${listing.user.id}">
+            <img class="mb-2" src="${listing.user.avatar}" alt="user avatar" width="150" />
+            </a>
+    <iframe src="${listing.linkIframe}" frameborder="0" target='_top' sandbox></iframe>
+            <h5 class="card-title mb-2">${listing.title}</h5>
+            <p class="card-text mb-2">${listing.description}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  `
+}
+
+/*
+  <embed src="https://ide.geeksforgeeks.org"
+width="400"
+height="400" />
+
+    <iframe is="x-frame-bypass" src="${listing.linkIframe}"></iframe>
+
+<embed src="${listing.linkIframe}" width=200 height=200 />
+
+
+src="iframe.php?url=${listing.linkIframe}"
+<iframe src="${listing.linkIframe}?igu=1"></iframe>*/
+     /* <div> <div class="row"><div class="col"><iframe class="mb-2" src="${listing.link}"</div><div class="col"></div> */
+
+      /*  <ul class="list-group">
+              ${listing.items.map((item) => `<li class="list-group-item ${item.checked && 'text-decoration-line-through'}">${item.name}</li>`).join('')}
+            </ul> */
+
+const generatePage = (info) => {
+  const $page = $('#pages-listings-show')
+  const $title = generateTitle(info)
+  const $listing = generateListing(info)
+
+  $page.html('').append($title).append($listing)
+}
+
+const getListing = () => {
+  axios({
+    method: 'GET',
+    url: `/api/listings/${id}` // update
+  }).then((resp) => {
+    generatePage({ listing: resp.data })
+
+  }).catch((err) => {
+    generatePage()
+  })
+}
+
+$(document).ready(() => {
+  generatePage({ isLoading: true })
+  getListing()
+
+})
+
+</script>
+
+
+<%- contentFor('body') %>
+<div id="iframe_imitator"></div>
+<div id="pages-listings-show" class="container"></div>
+
+<!--<?php require 'iframe.php'?></?php>
+<div id="divId" width="500px" height="500px"></div> -->
+
+
+<!--
+  // $('#divId').load(listing.linkIframe);
+
+   $(document).ready(function () {
+    var target_domain = "www.revolve.com";
+    var protocol = "http://";
+    //var path = ; //e.g. "/index.html"
+    var target_host = protocol + target_domain;
+    //var target_URI = target_host + path;
+    var method = "GET";
+    $.ajax({
+      url: target_URI,
+      type: method,
+      headers: {
+        "X-Requested-With": "", //nullifies the default AJAX value of "XMLHttpRequest"
+        "Origin": target_host, //lies to the target server
+        "Referer": target_host, //lies to the target server
+        "X-Http-Method-Override": method, //forces the specified method
+      },
+      crossDomain: "true" //applies cross domain settings
+    });
+  });
+  $(document).ajaxSuccess(function () {
+    $("#iframe_imitator").html(xhr.responseText);
+  });
+-->
