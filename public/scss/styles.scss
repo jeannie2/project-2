@@ -1,1 +1,7 @@
 @import 'node_modules/bootstrap/scss/bootstrap';
+
+@mixin blackBackground {
+  background-color: black;
+}
+
+$bebas: 'Bebas Neue', cursive;

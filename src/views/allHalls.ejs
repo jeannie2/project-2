@@ -1,5 +1,4 @@
 <%- contentFor('styles') %>
-
 <style>
 body {
   background-color: black
@@ -11,11 +10,30 @@ body {
   left: 50%;
   transform: translate(-50%, -50%)
 }
+
+.row {
+  background: black;
+  opacity: 0.5;
+}
+
+.row:hover {
+  opacity: 1;
+}
+
+a, a:hover {
+  color: gold;
+}
+
+h1 {
+  font-family: 'Bebas Neue', cursive;
+  border: 2px solid gold;
+}
+
 </style>
 <%- contentFor('scripts') %>
 <%- contentFor('body') %>
       <div class="container" id="galleries">
-        <div class="row text-center border border-dark mt-10" id="hallMain">
+        <div class="row text-center mt-10" id="hallMain">
           <div class="col-12">
             <h1 class="display-3">
               <a href="/halls/hallMain" class="text-decoration-none">Main Exhibition</a>
@@ -23,7 +41,7 @@ body {
           </div>
         </div>
 
-        <div class="row text-center border border-dark mt-10" id="hallA">
+        <div class="row text-center mt-10" id="hallA">
           <div class="col-12">
             <h1 class="display-3">
               <a href="/halls/hallA" class="text-decoration-none">Hall A</a>
@@ -31,7 +49,7 @@ body {
           </div>
         </div>
 
-        <div class="row text-center border border-dark mt-10" id="hallB">
+        <div class="row text-center mt-10" id="hallB">
           <div class="col-12">
             <h1 class="display-3">
               <a href="/halls/hallB" class="text-decoration-none">Hall B</a>

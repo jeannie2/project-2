@@ -3,6 +3,7 @@
 body {
   background-color: black;
 }
+
 .container {
   position: absolute;
   top: 50%;
@@ -10,34 +11,55 @@ body {
   transform: translate(-50%, -50%)
 }
 
-h1, h2 {
-  color: white;
-}
-a {
-  color: white;
-  text-decoration: none;
-  font-size: 1.5rem;
-  font-weight: bold;
+.col {
+  height: 40vh;
 }
 
+h1 {
+  color: white;
+  font-family: 'Bebas Neue', cursive;
+}
+
+h2, a {
+    font-family: 'Bebas Neue', cursive;
+    color: black;
+}
+
+a {
+  font-size: 1.5rem;
+}
+
+#visitors {
+  background-color: red;
+  opacity: 0.5
+}
+
+#exhibitors {
+  background-color: blue;
+  opacity: 0.5
+}
+
+#visitors:hover, #exhibitors:hover {
+  opacity: 1
+}
 </style>
 <%- contentFor('scripts') %>
 <%- contentFor('body') %>
 
   <div id="home" class="container">
   <div class="row text-center">
-    <h1>Welcome</h1>
+    <h1>Welcome to Art Tunnel</h1>
     </div>
     <div class="row text-center">
-    <div class="col border">
-    <h2>Visitors </h2><br>
+    <div id="visitors" class="col">
+    <h2 class="display-1">Visitors </h2><br>
       <a href="/allHalls">Enter</a>
     </div>
 
-    <div class="col border">
-    <h2>Exhibitors </h2><br>
+    <div id="exhibitors" class="col">
+    <h2 class="display-1">Exhibitors </h2><br>
       <a href="auth/login" class="mx-2">Login </a>
-      <a href="auth/signup">Sign up </a>
+      <a href="auth/signup">Register </a>
     </div>
   </div>
 </div>

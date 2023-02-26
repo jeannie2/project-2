@@ -1,4 +1,28 @@
 <%- contentFor('styles') %>
+<style>
+body {
+  background-color: black;
+}
+
+.card {
+  background-color: black;
+}
+
+iframe {
+  position: relative;
+  width: 40vw;
+  height: 50vh;
+}
+
+h1, h3, p {
+  font-family: 'Bebas Neue', cursive;
+  color: white;
+}
+
+.btn {
+  font-family: 'Bebas Neue', cursive;
+}
+</style>
 <%- contentFor('scripts') %>
 <script>
 const id = window.location.href.split('/').reverse()[0]
@@ -20,13 +44,13 @@ const generateListing = ({ isLoading, listing } = {}) => {
       <div class="col-12 col-md-10 offset-md-1 col-lg-8 offset-lg-2">
         <div class="card">
           <div class="card-body text-center">
-            <h5 class="card-title mb-2">${listing.title}</h5>
+            <h3 class="card-title mb-2">${listing.title}</h3>
             <p class="card-text mb-2">${listing.description}</p>
-            <iframe src="${listing.linkIframe}?igu=1"></iframe>
+            <iframe src="${listing.linkIframe}"></iframe>
 
             <div class="mb-2">
-              <a href="/my/listings/${id}/edit" class="btn btn-light btn-sm">Edit</a>
-              <button id="delete-listing" class="btn btn-danger btn-sm">Delete</button>
+              <a href="/my/listings/${id}/edit" class="btn btn-lg btn-light">Edit</a>
+              <button id="delete-listing" class="btn btn-lg btn-danger">Delete</button>
             </div>
           </div>
         </div>

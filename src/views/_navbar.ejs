@@ -1,3 +1,9 @@
+<style>
+nav {
+  font-family: 'Bebas Neue', cursive;
+  font-size: 1.3rem;
+}
+</style>
 <script>
 const replaceDynamicLinks = ({ isLoading, user } = {}) => {
   if (isLoading) return $('#navbar-dynamic-links').html('loading...')
@@ -18,10 +24,10 @@ const replaceDynamicLinks = ({ isLoading, user } = {}) => {
     </li>
   ` : `
     <li class="nav-item">
-      <a class="nav-link" href="/auth/signup">Signup</a>
+      <a class="nav-link" href="/auth/signup">Register</a>
     </li>
     <li class="nav-item">
-      <a class="nav-link" href="/auth/login">Login</a>
+      <a class="nav-link" href="/auth/login">Exhibitor login</a>
     </li>
   `)
 }

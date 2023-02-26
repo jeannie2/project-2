@@ -1,9 +1,14 @@
 <%- contentFor('styles') %>
-  <%- contentFor('scripts') %>
+<style>
+  h1, .btn {
+    font-family: 'Bebas Neue', cursive;
+  }
+</style>
+<%- contentFor('scripts') %>
     <script>
       const id = window.location.href.split('/').reverse()[0]
       const generateTitle = () => {
-        return '<h1 class="text-center mb-3">Hall BB</h1>'
+        return '<h1 class="text-center mb-3 display-1">Hall BB</h1>'
       } // update generateTitle h1 text?
 
       // update filter fields?
@@ -59,7 +64,7 @@
       const generateListing = (listing) => {
         return `
     <div class="col">
-      <a class="card text-body" href="/listing/${listing.id}" style="text-decoration: none;">
+      <a class="card animate__animated animate__flipInX text-body" href="/listing/${listing.id}" style="text-decoration: none;">
         <div class="card-body text-center">
           <img class="mb-2" src="${listing.user.avatar}" alt="user avatar" width="150" />
           <h5 class="card-title mb-2">${listing.title}</h5>

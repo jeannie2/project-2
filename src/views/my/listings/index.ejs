@@ -1,8 +1,29 @@
 <%- contentFor('styles') %>
+<style>
+body {
+  background-color: black;
+}
+
+.card {
+  color: white;
+  background-color: black;
+  border: 2px solid white;
+}
+
+h1, h2, h5, p {
+  color: white;
+  font-family: 'Bebas Neue', cursive;
+}
+
+.btn {
+  font-family: 'Bebas Neue', cursive;
+}
+
+</style>
 <%- contentFor('scripts') %>
 <script>
 const generateTitle = () => {
-  return '<h1 class="text-center mb-3">My Listings</h1>'
+  return '<h1 class="text-center mb-3">My Work</h1>'
 }
 
 // update filters, add artists?
@@ -93,7 +114,7 @@ const generateListings = ({ isLoading, listings = [] } = {}) => {
   console.log(listings)
   if (listings.length === 0) {
     return `
-      <h2 class="text-center mb-3">No Listing Found!</h2>
+      <h2 class="text-center mb-3">No listings found!</h2>
 
     `
   }

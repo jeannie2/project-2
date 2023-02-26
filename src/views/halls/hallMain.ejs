@@ -1,9 +1,26 @@
 <%- contentFor('styles') %>
-  <%- contentFor('scripts') %>
-    <script>
+<style>
+body {
+  background-color: silver;
+  background-repeat: no-repeat, repeat;
+  background-size: cover;
+}
+
+h1, .btn {
+  font-family: 'Bebas Neue', cursive;
+}
+
+.card {
+   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+</style>
+
+<%- contentFor('scripts') %>
+<script>
       const id = window.location.href.split('/').reverse()[0]
       const generateTitle = () => {
-        return '<h1 class="text-center mb-3">Main Exhibition</h1>'
+        return '<h1 class="text-center mb-3 display-1">Main Exhibition</h1>'
       } // update generateTitle h1 text?
 
       // update filter fields?
@@ -59,7 +76,7 @@
       const generateListing = (listing) => {
         return `
     <div class="col">
-      <a class="card text-body" href="/listings/${listing.id}" style="text-decoration: none;">
+      <a class="card animate__animated animate__flipInX text-body" href="/listings/${listing.id}" style="text-decoration: none;">
         <div class="card-body text-center">
           <img class="mb-2" src="${listing.user.avatar}" alt="user avatar" width="150" />
           <h5 class="card-title mb-2">${listing.title}</h5>

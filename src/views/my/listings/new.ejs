@@ -1,8 +1,30 @@
 <%- contentFor('styles') %>
+<style>
+  body {
+    background-color: black;
+  }
+
+  #pages-my-listings-new {
+    text-align: center;
+  }
+
+  h1, label {
+    font-family: 'Bebas Neue', cursive;
+    color: white;
+  }
+
+  label {
+    font-size: 1.2rem;
+  }
+
+  .btn {
+    font-family: 'Bebas Neue', cursive;
+  }
+</style>
 <%- contentFor('scripts') %>
 <script>
 const generateTitle = () => {
-  return '<h1 class="text-center mb-3">New Listing</h1>'
+  return '<h1 class="text-center mb-3">Create new listing</h1>'
 }
 
 /* const generateItemInputs = (values, errors) => {
@@ -87,7 +109,7 @@ const generateForm = ({ listing, errors } = {}) => {
 
           </div>
 
-          <button class="btn btn-light" type="submit">Submit</button>
+          <button class="btn btn-lg btn-light" type="submit">Submit</button>
         </form>
       </div>
     </div>

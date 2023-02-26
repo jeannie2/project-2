@@ -1,4 +1,26 @@
 <%- contentFor('styles') %>
+<style>
+body {
+  background-color: black;
+}
+
+#pages-my-listings-edit {
+  text-align: center;
+}
+
+h1, label {
+  font-family: 'Bebas Neue', cursive;
+  color: white;
+}
+
+label {
+  font-size: 1.2rem;
+}
+
+.btn {
+  font-family: 'Bebas Neue', cursive;
+}
+</style>
 <%- contentFor('scripts') %>
 <script>
 const id = window.location.href.split('/').reverse()[1]
@@ -67,7 +89,7 @@ const generateForm = ({ isLoading, listing, errors } = {}) => {
             <div class="invalid-feedback">${errors?.description || ''}</div>
           </div>
 
-          <button class="btn btn-light" type="submit">Submit</button>
+          <button class="btn btn-lg btn-light" type="submit">Submit</button>
         </form>
       </div>
     </div>

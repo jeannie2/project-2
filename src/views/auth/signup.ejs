@@ -1,4 +1,27 @@
 <%- contentFor('styles') %>
+<style>
+body {
+  background-color: black;
+}
+
+#pages-auth-signup {
+  text-align: center;
+}
+
+h1, label {
+color: white;
+font-family: 'Bebas Neue', cursive;
+}
+
+label {
+  font-size: 1.3rem;
+}
+
+.btn {
+  font-family: 'Bebas Neue', cursive;
+}
+</style>
+
 <%- contentFor('scripts') %>
 <script>
 const generateForm = ({ user, errors } = {}) => {
@@ -86,7 +109,7 @@ const generateForm = ({ user, errors } = {}) => {
             <div class="invalid-feedback">${errors?.avatar || ''}</div>
           </div>
 
-          <button class="btn btn-light" type="submit">Submit</button>
+          <button class="btn btn-lg btn-light" type="submit">Submit</button>
         </form>
       </div>
     </div>
@@ -102,7 +125,7 @@ const generateForm = ({ user, errors } = {}) => {
 
 const generatePage = (info) => {
   const $page = $('#pages-auth-signup')
-  const $title = '<h1 class="text-center">Sign up</h1>'
+  const $title = '<h1 class="text-center">Register</h1>'
   const $form = generateForm(info)
 
   $page.html('').append($title).append($form)
