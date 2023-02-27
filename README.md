@@ -31,3 +31,9 @@
 - Now, whenever you push to your github repo's master branch, it will automatically deploy to Railway
 
 https://pixabay.com/photos/white-wall-texture-grunge-rough-1866105/
+
+https://pixabay.com/photos/wall-paint-pink-simple-crack-2589886/
+https://pixabay.com/photos/pink-red-wall-tissue-background-4107025/
+https://pixabay.com/photos/green-pink-red-wall-tissue-4107021/
+https://pixabay.com/photos/wall-blue-grunge-ancient-pattern-3430446/
+https://pixabay.com/photos/metal-wall-iron-fence-door-aged-176800/

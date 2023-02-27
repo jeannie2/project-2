@@ -11,8 +11,52 @@ body {
   transform: translate(-50%, -50%)
 }
 
+.row {
+  border: 2px solid green;
+}
 .col {
-  height: 40vh;
+  height: 50vh;
+  border: 2px solid green;
+}
+
+#visitors {
+
+  /* background-image: url("/assets/hand_left.png"); */
+  opacity: 0.5;
+  display:block;
+  background-image:url("/assets/hand_right.png");
+  background-color: red;
+  background-size: cover;
+  background-position:center;
+}
+
+#exhibitors {
+  background-color: blue;
+  opacity: 0.5
+}
+
+#exhibitors {
+  opacity: 0.5;
+  display:block;
+  background-image:url("/assets/hand_left.png");
+  background-size: cover;
+  background-position:center;
+}
+
+
+#visitors:hover, #exhibitors:hover {
+  opacity: 0.8;
+
+}
+
+#visitors:hover {
+  background-image:url("/assets/hand_left.png");
+    background-size: cover;
+}
+
+#exhibitors:hover {
+  background-image:url("/assets/hand_right.png");
+     background-size: cover;
 }
 
 h1 {
@@ -26,39 +70,48 @@ h2, a {
 }
 
 a {
-  font-size: 1.5rem;
+  font-size: 2rem;
+  transition: color .3s ease-in-out, box-shadow .3s ease-in-out;
+  color: white;
+  text-decoration: none;
+  box-shadow: inset 0 0 0 0 black;
 }
 
-#visitors {
-  background-color: red;
-  opacity: 0.5
+a:hover {
+  box-shadow: inset 100px 0 0 0 black;
+  color: white;
 }
 
-#exhibitors {
-  background-color: blue;
-  opacity: 0.5
+img {
+left: -10%;
+  position: relative;
+  top: -30%;
+  width: 50%;
+  height: auto;
+
 }
 
-#visitors:hover, #exhibitors:hover {
-  opacity: 1
+img:hover {
+
 }
 </style>
 <%- contentFor('scripts') %>
 <%- contentFor('body') %>
-
-  <div id="home" class="container">
+<div id="home" class="container">
   <div class="row text-center">
-    <h1>Welcome to Art Tunnel</h1>
+    <h1> M o M A online </h1>
     </div>
     <div class="row text-center">
     <div id="visitors" class="col">
     <h2 class="display-1">Visitors </h2><br>
+    <!--<img src="/assets/hand_right.png"> -->
       <a href="/allHalls">Enter</a>
     </div>
 
     <div id="exhibitors" class="col">
     <h2 class="display-1">Exhibitors </h2><br>
       <a href="auth/login" class="mx-2">Login </a>
+      <!--<img src="/assets/hand_left.png"> -->
       <a href="auth/signup">Register </a>
     </div>
   </div>

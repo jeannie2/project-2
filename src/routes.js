@@ -1,8 +1,17 @@
+import axios from 'axios'
 import { Router } from 'express'
 
 import authenticateUser from './_middlewares/authenticate-user.js'
 
 const router = Router()
+
+// router.get('/testing', async (req, res) => {
+//   const resp = await axios.get('https://google.com', { responseType: 'document' })
+//   console.log(resp)
+
+//   res.setHeader('Content-Type', 'text/html')
+//   res.send(resp.data)
+// })
 
 // API | AUTH
 router.post('/api/auth/signup', (await import('./controllers/api/auth/signup.js')).default)

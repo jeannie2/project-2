@@ -37,7 +37,6 @@
     <script type="module" src="https://unpkg.com/x-frame-bypass"></script>
     <script>
       const id = window.location.href.split('/').reverse()[0] //href vs pathname?
-
       const generateTitle = ({ isLoading, listing } = {}) => {
         if (isLoading) return `<div class="text-center">Loading...</div>`
         if (!listing) return `<h1 class="text-center mb-3">Listing ${id} Not Found!</h1>`
@@ -56,7 +55,7 @@
             <iframe src="${listing.linkIframe}" frameborder="0" target='_top' sandbox></iframe>
           <div class="card-body text-center">
 
-              <a href="/artists/${listing.user.id}">${listing.user.name}</a>
+              <a href="/artists/${listing.user.id}">${listing.user.name} ${listing.user.id}</a>
             <h5 class="card-title mb-2">${listing.title}</h5>
             <p class="card-text mb-2">${listing.description}</p>
           </div>
@@ -102,8 +101,8 @@
           method: 'GET',
           url: `/api/listings/${id}` // update
         }).then((resp) => {
+          console.log(resp.data.userId)
           generatePage({ listing: resp.data })
-
         }).catch((err) => {
           generatePage()
         })
