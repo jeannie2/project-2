@@ -1,38 +1,4 @@
 <%- contentFor('styles') %>
-<style>
-  body {
-    background-color: black;
-  }
-
-  #pages-listings-show {
-    height: 80vh;
-    border: 2px solid black;
-  }
-
-  iframe {
-    position: relative;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 70vw;
-    height: 60vh;
-  }
-
-  .card {
-    font-family: 'Bebas Neue', cursive;
-    color: white;
-    background-color: black;
-  }
-
-  h1 {
-    font-family: 'Bebas Neue', cursive;
-    color: white;
-  }
-
-  a {
-    font-size: 1.3rem;
-  }
-</style>
-
   <%- contentFor('scripts') %>
     <script type="module" src="https://unpkg.com/x-frame-bypass"></script>
     <script>
@@ -52,9 +18,8 @@
     <div class="row">
       <div class="col-12">
         <div class="card">
-            <iframe src="${listing.linkIframe}" frameborder="0" target='_top' sandbox></iframe>
+          <img class="mb-2 card-img-top" src="${listing.work}" alt="user work"/>
           <div class="card-body text-center">
-
               <a href="/artists/${listing.user.id}">${listing.user.name} ${listing.user.id}</a>
             <h5 class="card-title mb-2">${listing.title}</h5>
             <p class="card-text mb-2">${listing.description}</p>
@@ -65,7 +30,7 @@
   `
       }
 
-      /*
+      /*   <iframe src="${listing.linkIframe}" frameborder="0" target='_top' sandbox></iframe>
             <a href="/artists/${listing.user.id}">
             <img class="mb-2" src="${listing.user.avatar}" alt="user avatar" width="100" />
             </a>
@@ -118,7 +83,6 @@
 
 
     <%- contentFor('body') %>
-      <div id="iframe_imitator"></div>
       <div id="pages-listings-show" class="container"></div>
 
       <!--<?php require 'iframe.php'?></?php>

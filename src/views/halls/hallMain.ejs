@@ -1,37 +1,4 @@
 <%- contentFor('styles') %>
-<style>
-body {
-  background-image: url("/assets/white.jpg");
-  background-size: cover;
-}
-
-iframe {
-  position: relative;
-  width: 90%;
-  height: 70%;
-}
-
-.card {
-  border: 5px solid #1B0000;
-  margin-top: 20px;
-  box-shadow: 0 8px 20px 0 rgba(0, 0, 0, 0.2), 0 12px 20px 0 rgba(0, 0, 0, 0.19);
-  box-shadow: 10px 10px 16px #000000,
-  inset  0 0 5px 3px hsl(0, 0%, 30%),
-  inset  0 0 0 2px hsl(0, 1%, 53%),
-  inset  0 0 3px 5px hsl(0, 33%, 10%);
-  /* min-width: 25vw;
-  max-width: 10vw; */
-}
-
-h1 {
-  font-family: 'Bebas Neue', cursive;
-  color: black;
-}
-
-.btn {
-  font-family: 'Bebas Neue', cursive;
-}
-</style>
 <%- contentFor('scripts') %>
 <script>
 const id = window.location.href.split('/').reverse()[0]
@@ -93,19 +60,17 @@ const generateTitle = () => {
         return `
        <div class="col-12 col-sm-6 col-lg-3">
       <a class="card animate__animated animate__flipInX text-body" href="/listings/${listing.id}" style="text-decoration: none;">
-              <div class="card-body text-center">
-          <iframe class="mb-2" src="${listing.linkIframe}" alt="user linkIframe"></iframe
-            </div>
-         <div class="card-body text-center">
+          <img id="workImage" class="mb-2 card-img-top" src="${listing.work}" alt="user work" />
+        <div class="card-body text-center">
             <img class="mb-2 rounded-circle" src="${listing.user.avatar}" alt="user avatar" width="50" height="50" />
           <h6 class="card-title mb-2">${listing.title}</h6>
-        </div>
         </div>
       </a>
 </div>
   `
       }
-      /*  <p class="card-text mb-2">${listing.description}</p>*/
+      /*       <iframe class="mb-2" src="${listing.linkIframe}" alt="user linkIframe"></iframe
+         <p class="card-text mb-2">${listing.description}</p>*/
 
       const generateListings = ({ isLoading, listings = [] } = {}) => {
         if (isLoading) return `<div class="text-center mb-3">Loading...</div>`

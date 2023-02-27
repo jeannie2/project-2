@@ -1,26 +1,9 @@
 <%- contentFor('styles') %>
-<style>
-  body {
-    background-color: black;
-  }
-
-  .card {
-    font-family: 'Bebas Neue', cursive;
-    color: white;
-    background-color: black;
-  }
-
-  h1 {
-    font-family: 'Bebas Neue', cursive;
-    color: white;
-  }
-</style>
 <%- contentFor('scripts') %>
-
 <script>
-  const id = window.location.href.split('/').reverse()[0]
+const id = window.location.href.split('/').reverse()[0]
 // const userId = window.location.href.split('/').reverse()[0] //delete?
- console.log(id) // undefined
+console.log(id) // undefined
 const generateTitle = ({ isLoading, user } = {}) => {
   if (isLoading) return `<div class="text-center">Loading...</div>`
   if (!user) return `<h1 class="text-center mb-3">Artist ${user.name} Not Found!</h1>`

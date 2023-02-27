@@ -1,0 +1,30 @@
+body {
+  background-image: url("/assets/pink.jpg");
+  background-size: cover;
+}
+
+/* iframe {
+  position: relative;
+  width: 90%;
+  height: 70%;
+} */
+
+.card {
+  border: 5px solid #1B0000;
+  margin-top: 20px;
+  box-shadow: 0 8px 20px 0 rgba(0, 0, 0, 0.2), 0 12px 20px 0 rgba(0, 0, 0, 0.19);
+  box-shadow: 10px 10px 16px #000000,
+    inset 0 0 5px 3px hsl(0, 0%, 30%),
+    inset 0 0 0 2px hsl(0, 1%, 53%),
+    inset 0 0 3px 5px hsl(0, 33%, 10%);
+  /* min-width: 25vw;
+  max-width: 10vw; */
+}
+
+h1 {
+  color: black;
+}
+
+/* .btn {
+  font-family: 'Bebas Neue', cursive;
+} */

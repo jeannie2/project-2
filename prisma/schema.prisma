@@ -21,7 +21,7 @@ model Listing {
   title       String
   description String
   hallId      String
-  linkIframe  String
+  work        String
   user        User?  @relation(fields: [userId], references: [id])
   userId      Int?
 }

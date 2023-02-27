@@ -1,4 +1,34 @@
-@import 'node_modules/bootstrap/scss/bootstrap';
-@import "utilities";
+@import "variablesMixins";
 
+@import 'node_modules/bootstrap/scss/bootstrap';
 @import 'home';
+@import 'artists';
+@import 'login';
+@import 'signup';
+@import 'hallA';
+@import 'hallB';
+@import 'hallMain';
+@import 'allHalls';
+@import 'listingsShow';
+
+@import 'myListingsEdit';
+@import 'myListingsIndex';
+@import 'myListingsNew';
+@import 'myListingsShow';
+
+@import 'myProfileEdit';
+
+
+body {
+  font-family: $bebas;
+  @include blackBackground;
+}
+
+.card {
+  color: white;
+  @include blackBackground;
+}
+
+label {
+  color: white;
+}

@@ -1,26 +1,4 @@
 <%- contentFor('styles') %>
-<style>
-  body {
-    background-color: black;
-  }
-
-  #pages-my-listings-new {
-    text-align: center;
-  }
-
-  h1, label {
-    font-family: 'Bebas Neue', cursive;
-    color: white;
-  }
-
-  label {
-    font-size: 1.2rem;
-  }
-
-  .btn {
-    font-family: 'Bebas Neue', cursive;
-  }
-</style>
 <%- contentFor('scripts') %>
 <script>
 const generateTitle = () => {
@@ -55,7 +33,8 @@ const generateTitle = () => {
 
 // update input, delete items div, add artist?
 const generateForm = ({ listing, errors } = {}) => {
-  return `
+   const $form = $(`
+
     <div class="row">
       <div id="form-wrapper" class="col-12 col-md-10 offset-md-1 col-lg-8 offset-lg-2">
         <form id="listing-new-form">
@@ -82,15 +61,9 @@ const generateForm = ({ listing, errors } = {}) => {
           </div>
 
           <div class="mb-3">
-            <label for="listing-linkIframe" class="form-label">Link to work</label>
-            <input
-              id="listing-linkIframe"
-              class="form-control ${errors?.linkIframe && 'is-invalid'}"
-              name="linkIframe"
-              type="url"
-              value="${listing?.linkIframe || ''}"
-            ></input>
-            <div class="invalid-feedback">${errors?.linkIframe || ''}</div>
+            <label for="listing-work" class="form-label">Upload work</label>
+            <input id="listing-work" class="form-control" name="work" type="file"></input>
+            <div class="invalid-feedback">${errors?.work || ''}</div>
           </div>
 
         <div class="mb-3">
@@ -113,11 +86,28 @@ const generateForm = ({ listing, errors } = {}) => {
         </form>
       </div>
     </div>
-  `
+  `)
+  if (listing?.work?.constructor?.name === 'File') {
+    const $work = $('#listing-work').attr('class', `form-control ${errors?.work && 'is-invalid'}`)
+    $form.find('#listing-work').replaceWith($work)
+  }
+    return $form
 }
 
 /*
- <div class="mb-3">
+<div class="mb-3">
+            <label for="listing-linkIframe" class="form-label">Link to work</label>
+            <input
+              id="listing-linkIframe"
+              class="form-control ${errors?.linkIframe && 'is-invalid'}"
+              name="linkIframe"
+              type="url"
+              value="${listing?.linkIframe || ''}"
+            ></input>
+            <div class="invalid-feedback">${errors?.linkIframe || ''}</div>
+          </div>
+
+<div class="mb-3">
             <div class="mb-2 fw-bold">Items (Optional)</div>
             ${generateItemInputs(listing, errors)}
             <div class="text-center">

@@ -1,3 +1,92 @@
-#home {
+/* #home {
   @include blackBackground;
+} */
+
+.container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%)
 }
+
+.row {
+  border: 2px solid green;
+}
+
+.col {
+  height: 50vh;
+  border: 2px solid green;
+}
+
+#visitors {
+  /* background-image: url("/assets/hand_left.png"); */
+  opacity: 0.5;
+  display: block;
+  background-image: url("/assets/hand_right.png");
+  background-color: red;
+  background-size: cover;
+  background-position: center;
+}
+
+#exhibitors {
+  background-color: blue;
+  opacity: 0.5
+}
+
+#exhibitors {
+  opacity: 0.5;
+  display: block;
+  background-image: url("/assets/hand_left.png");
+  background-size: cover;
+  background-position: center;
+}
+
+#visitors:hover,
+#exhibitors:hover {
+  opacity: 0.8;
+}
+
+#visitors:hover {
+  background-image: url("/assets/hand_left.png");
+  background-size: cover;
+}
+
+#exhibitors:hover {
+  background-image: url("/assets/hand_right.png");
+  background-size: cover;
+}
+
+h1 {
+  color: white;
+  font-family: 'Bebas Neue', cursive;
+}
+
+h2,
+a {
+  font-family: 'Bebas Neue', cursive;
+  color: black;
+}
+
+a {
+  font-size: 2rem;
+  transition: color .3s ease-in-out, box-shadow .3s ease-in-out;
+  color: white;
+  text-decoration: none;
+  box-shadow: inset 0 0 0 0 black;
+}
+
+a:hover {
+  box-shadow: inset 100px 0 0 0 black;
+  color: white;
+}
+
+img {
+  left: -10%;
+  position: relative;
+  top: -30%;
+  width: 50%;
+  height: auto;
+
+}
+
+img:hover {}

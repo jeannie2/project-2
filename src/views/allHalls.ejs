@@ -1,35 +1,4 @@
 <%- contentFor('styles') %>
-<style>
-body {
-  background-color: black
-}
-
-.container {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%)
-}
-
-.row {
-  background: black;
-  opacity: 0.5;
-}
-
-.row:hover {
-  opacity: 1;
-}
-
-a, a:hover {
-  color: gold;
-}
-
-h1 {
-  font-family: 'Bebas Neue', cursive;
-  border: 2px solid gold;
-}
-
-</style>
 <%- contentFor('scripts') %>
 <%- contentFor('body') %>
       <div class="container" id="galleries">
@@ -60,4 +29,5 @@ h1 {
 
 <script>
   $(".navbar").hide();
+  document.getElementById('sound').play()
 </script>
