@@ -1,4 +1,18 @@
 <%- contentFor('styles') %>
+<style>
+#pages-my-listings-edit {
+  text-align: center;
+}
+
+h1 {
+  color: white;
+}
+
+label {
+  font-size: 1.2rem;
+}
+
+</style>
 <%- contentFor('scripts') %>
 <script>
 const id = window.location.href.split('/').reverse()[1]
@@ -10,34 +24,6 @@ const generateTitle = ({ isLoading, listing } = {}) => {
   return `<h1 class="text-center mb-3">Edit Listing ${id}</h1>`
 }
 
-/* const generateItemInputs = (values, errors) => {
-  const items = values?.items || []
-  const itemsErrs = errors?.items || []
-
-  // delete form-check div, update input?
-  return items.map((item, i) => {
-    return `
-      <div class="mb-3">
-        <label for="listing-item-${i}-name" class="form-label">Item ${i + 1}</label>
-        <button class="delete-item btn btn-danger btn-sm float-end" data-index="${i}" type="button">Delete</button>
-        <input
-          id="listing-item-${i}-name"
-          class="form-control ${itemsErrs[i]?.name && 'is-invalid'}"
-          name="items[${i}][name]"
-          value="${item?.name || ''}"
-        ></input>
-        <div class="invalid-feedback">${itemsErrs[i]?.name || ''}</div>
-      </div>
-      <div class="form-check mb-3">
-        <input id="listing-item-${i}-checked" class="form-check-input" type="checkbox" name="items[${i}][checked]" ${item?.checked ? 'checked' : ''}>
-        <label for="listing-item-${i}-checked" class="form-check-label">Received/Brought</label>
-      </div>
-    `
-  }).join('')
-} */
-
-// delete items div
-// add iframe edit option + avatar, user name?
 const generateForm = ({ isLoading, listing, errors } = {}) => {
   if (isLoading || !listing) return ''
 
@@ -74,46 +60,6 @@ const generateForm = ({ isLoading, listing, errors } = {}) => {
   `
 }
 
-/*
-/////
-  <div class="mb-3">
-            <label for="listing-linkIframe" class="form-label">Link to work</label>
-            <input
-              id="listing-linkIframe"
-              class="form-control ${errors?.linkIframe && 'is-invalid'}"
-              name="linkIframe"
-              value="${listing?.linkIframe || ''}"
-              type="url"
-            ></input>
-            <div class="invalid-feedback">${errors?.linkIframe || ''}</div>
-          </div>
-
-           <div class="mb-3">
-          <div class="form-check form-check-inline">
-            <input class="form-check-input" type="radio" name="hallId" id="radio1" value="hallMain">
-            <label class="form-check-label" for="inlineRadio1">Main Exhibition</label>
-          </div>
-          <div class="form-check form-check-inline">
-            <input class="form-check-input" type="radio" name="hallId" id="radio2" value="hallA">
-            <label class="form-check-label" for="inlineRadio2">Hall A</label>
-          </div>
-          <div class="form-check form-check-inline">
-            <input class="form-check-input" type="radio" name="hallId" id="radio3" value="hallB">
-            <label class="form-check-label" for="inlineRadio3">Hall B</label>
-          </div>
-
-          </div>
-
-          ////
-
-          <div class="mb-3">
-            <div class="mb-2 fw-bold">Items (Optional)</div>
-            ${generateItemInputs(listing, errors)}
-            <div class="text-center">
-              <button id="add-listing-item" class="btn btn-info btn-sm" type="button">Add Item</button>
-            </div>
-          </div> */
-
 const generatePage = (info) => {
   const $page = $('#pages-my-listings-edit')
   const $title = generateTitle(info)
@@ -125,7 +71,7 @@ const generatePage = (info) => {
 const getListing = () => {
   axios({
     method: 'GET',
-    url: `/api/my/listings/${id}` // check
+    url: `/api/my/listings/${id}`
   }).then((resp) => {
     generatePage({ listing: resp.data })
   }).catch((err) => {
@@ -141,10 +87,10 @@ const handleSubmit = (e) => {
 
   axios({
     method: 'PUT',
-    url: `/api/my/listings/${id}`, // check
+    url: `/api/my/listings/${id}`,
     data
   }).then((resp) => {
-    window.location.href = `/my/listings/${resp.data.id}` // check
+    window.location.href = `/my/listings/${resp.data.id}`
   }).catch((err) => {
     generatePage({ listing: parseFormData(data), errors: err.response.data })
   })
@@ -152,7 +98,6 @@ const handleSubmit = (e) => {
 
 const handleAddItem = () => {
   const data = parseFormData(new FormData($('#listing-edit-form')[0]))
-  // data.items = [...data?.items || [], { name: '', checked: false }]  // update?
 
   generatePage({ listing: data })
 }

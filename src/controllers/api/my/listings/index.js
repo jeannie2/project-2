@@ -10,11 +10,6 @@ const controllersApiMyListingsIndex = async (req, res) => {
     const orderBy = req.query.orderBy || 'id'
     const sortBy = req.query.sortBy || 'asc'
 
-    /* Pagination
-    const take = 10
-    const page = Number(req.query.page || '1')
-    const skip = (page - 1) * take */
-
     // Common Where Query
     const where = {
       userId,
@@ -31,10 +26,7 @@ const controllersApiMyListingsIndex = async (req, res) => {
       ]
     }
 
-    // const totalMyListings = await prisma.wishlist.count({ where })
     const foundMyListings = await prisma.listing.findMany({
-      // take,
-    //  skip,
       where,
       orderBy: {
         [orderBy]: sortBy
@@ -49,10 +41,6 @@ const controllersApiMyListingsIndex = async (req, res) => {
     })
 
     return res.status(200).json(foundMyListings)
-    /* return res.status(200).json({
-      listings: foundMyListings,
-      meta: { currentPage: page, totalPages: Math.ceil(totalMyListings / take) }
-    }) */
   } catch (err) {
     return handleErrors(res, err)
   }

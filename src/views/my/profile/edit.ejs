@@ -1,7 +1,21 @@
 <%- contentFor('styles') %>
+<style>
+#pages-my-profile-edit {
+  text-align: center;
+}
+
+h1 {
+  color: white;
+}
+
+label {
+  font-size: 1.2rem;
+}
+
+</style>
 <%- contentFor('scripts') %>
 <script>
-// Keep the avatar url reference
+// keep avatar url reference
 let avatarURL = ''
 
 const generateTitle = ({ isLoading, user } = {}) => {
@@ -76,7 +90,6 @@ const generateForm = ({ user, errors } = {}) => {
     const $avatar = $('#user-avatar').attr('class', `form-control ${errors?.avatar && 'is-invalid'}`)
     $form.find('#user-avatar').replaceWith($avatar)
   }
-
   return $form
 }
 

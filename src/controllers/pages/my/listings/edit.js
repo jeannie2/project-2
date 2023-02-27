@@ -1,5 +1,5 @@
 const controllersPagesMyListingsEdit = async (req, res) => {
-  res.render('my/listings/edit') // check
+  res.render('my/listings/edit')
 }
 
 export default controllersPagesMyListingsEdit

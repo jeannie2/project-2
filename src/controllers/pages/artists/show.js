@@ -1,5 +1,5 @@
 const controllersPagesArtistsShow = async (req, res) => {
-  res.render('artists/show') // check
+  res.render('artists/show')
 }
 
 export default controllersPagesArtistsShow

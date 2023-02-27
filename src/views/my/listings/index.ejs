@@ -1,11 +1,24 @@
 <%- contentFor('styles') %>
+<style>
+.card {
+  background-color: black;
+  border: 2px solid white;
+}
+
+h1,
+h2,
+h5,
+p {
+  color: white;
+}
+
+</style>
 <%- contentFor('scripts') %>
 <script>
 const generateTitle = () => {
   return '<h1 class="text-center mb-3">My Work</h1>'
 }
 
-// update filters, add artists?
 const generateFilter = ({ queries: { q, orderBy, sortBy } = {} } = {}) => {
   return `
     <form id="filter" class="row row-cols-lg-auto g-3 justify-content-center align-items-center mb-3">
@@ -48,32 +61,6 @@ const generateFilter = ({ queries: { q, orderBy, sortBy } = {} } = {}) => {
   `
 }
 
-/*
-const generatePagination = (isLoading, { currentPage, totalPages } = {}) => {
-        if (isLoading || !totalPages || totalPages <= 1) return ''
-
-        let links = ''
-
-        if (totalPages > 2 && currentPage > 1) links += `<li class="page-item"><a class="page-link" href="#" data-page="1">First</a></li>`
-        if (currentPage - 1 >= 1) links += `<li class="page-item"><a class="page-link" href="#" data-page="${currentPage - 1}">Prev</a></li>`
-        if (currentPage - 2 >= 1) links += `<li class="page-item"><a class="page-link" href="#" data-page="${currentPage - 2}">${currentPage - 2}</a></li>`
-        if (currentPage - 1 >= 1) links += `<li class="page-item"><a class="page-link" href="#" data-page="${currentPage - 1}">${currentPage - 1}</a></li>`
-
-        links += `<li class="page-item active"><a class="page-link">${currentPage}</a></li>`
-
-        if (currentPage + 1 <= totalPages) links += `<li class="page-item"><a class="page-link" href="#" data-page="${currentPage + 1}">${currentPage + 1}</a></li>`
-        if (currentPage + 2 <= totalPages) links += `<li class="page-item"><a class="page-link" href="#" data-page="${currentPage + 2}">${currentPage + 2}</a></li>`
-        if (currentPage + 1 <= totalPages) links += `<li class="page-item"><a class="page-link" href="#" data-page="${currentPage + 1}">Next</a></li>`
-        if (totalPages > 2 && currentPage < totalPages) links += `<li class="page-item"><a class="page-link" href="#" data-page="${totalPages}">Last</a></li>`
-
-        return `
-    <ul class="pagination justify-content-center mt-3">
-      ${links}
-    </ul>
-  `
-} */
-
-// check href, add artist?
 const generateListing = (listing) => {
   return `
     <div class="col">
@@ -87,20 +74,14 @@ const generateListing = (listing) => {
   `
 }
 
-// check href
 const generateListings = ({ isLoading, listings = [] } = {}) => {
   if (isLoading) return `<div class="text-center mb-3">Loading...</div>`
   console.log(listings)
   if (listings.length === 0) {
     return `
       <h2 class="text-center mb-3">No listings found!</h2>
-
     `
   }
-
-/*       <div class="text-center">
-        <a class="btn btn-light" href="/my/listings/new">Create New Listing!</a>
-      </div> */
 
   return `
     <div class="row">
@@ -118,19 +99,18 @@ const generatePage = (info) => {
   const $title = generateTitle(info)
   const $filter = generateFilter(info)
   const $listings = generateListings(info)
-  //const $pagination = generatePagination(info)
 
-  $page.html('').append($title).append($filter).append($listings)// .append($pagination)// .append($pagination)
+  $page.html('').append($title).append($filter).append($listings)
 }
 
 $(document).ready(() => {
   generatePage({ isLoading: true })
   axios({
     method: 'GET',
-    url: '/api/my/listings' // check
+    url: '/api/my/listings'
   }).then((resp) => {
-    generatePage({ listings: resp.data}) //resp.data.listings
-    ///generatePage({ listings: resp.data.listings, meta: resp.data.meta })
+    generatePage({ listings: resp.data}) // resp.data.listings
+    // generatePage({ listings: resp.data.listings, meta: resp.data.meta })
   })
 
   // On Filter Submit
@@ -142,7 +122,7 @@ $(document).ready(() => {
 
     axios({
       method: 'GET',
-      url: '/api/my/listings', // check
+      url: '/api/my/listings',
       params: queries
     }).then((resp) => {
       generatePage({ listings: resp.data, queries })
@@ -157,11 +137,11 @@ $(document).ready(() => {
 
     axios({
       method: 'GET',
-      url: `/api/my/listings` // check
+      url: `/api/my/listings`
     }).then((resp) => {
-      generatePage({ listings: resp.data }) //updated
+      generatePage({ listings: resp.data })
       // generatePage({ listings: resp.data.listings })
-      //generatePage({ listings: resp.data.listings, meta: resp.data.meta })
+      // generatePage({ listings: resp.data.listings, meta: resp.data.meta })
     })
   })
 
@@ -175,7 +155,7 @@ $(document).ready(() => {
 
     axios({
       method: 'GET',
-      url: '/api/my/listings', // check
+      url: '/api/my/listings',
       params: {
         ...queries,
         page
@@ -183,7 +163,7 @@ $(document).ready(() => {
     }).then((resp) => {
     generatePage({ listings: resp.data, queries })
      // generatePage({ listings: resp.data.listings, queries })
-      // console.log(resp) // resp.data
+     // console.log(resp) // resp.data
      // generatePage({ listings: resp.data.listings, meta: resp.data.meta, queries })
     })
   })

@@ -7,13 +7,6 @@ import checkOwnership from './_check-ownership.js'
 const updateSchema = yup.object({
   title: yup.string().required(),
   description: yup.string().required()
-  // hallId: yup.string().required(), // how pass as param? COMMENTED
-  // linkIframe: yup.string().url().required() COMMENTED
-/*
-  items: yup.array().of(yup.object({
-    name: yup.string().required().label('name'),
-    hallId: yup.string().required().label('hallId') // need label?
-  })) */
 })
 
 const controllersApiListingsUpdate = async (req, res) => {
@@ -24,10 +17,6 @@ const controllersApiListingsUpdate = async (req, res) => {
       where: { id: Number(id) },
       data: {
         ...verifiedData
-        /* items: {
-          deleteMany: {},
-          create: verifiedData?.items
-        } */
       }
     })
     return res.status(200).json(updated)

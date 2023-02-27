@@ -26,7 +26,7 @@ const updateSchema = yup.object({
     (password) => !password || password.length >= 6
   ),
   passwordConfirmation: yup.string().oneOf([yup.ref('password'), null], 'Passwords must match'),
-  bio: yup.string().min(6).required(), // added
+  bio: yup.string().min(6).required(),
   link: yup.string().url().required(),
   avatar: yup.mixed()
 })
@@ -41,10 +41,10 @@ const controllersApiMyProfileUpdate = async (req, res) => {
     const updatedUser = await prisma.user.update({
       where: { id },
       data: {
-        name: verifiedData.name, // added
-        bio: verifiedData.bio, // added
-        link: verifiedData.link, // added
-        email: verifiedData.email, // added
+        name: verifiedData.name,
+        bio: verifiedData.bio,
+        link: verifiedData.link,
+        email: verifiedData.email,
         avatar: verifiedData.avatar || currentUser.avatar,
         ...verifiedData.password && { passwordHash: await bcrypt.hash(verifiedData.password, 10) }
       }

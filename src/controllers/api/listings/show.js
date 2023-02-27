@@ -3,18 +3,17 @@ import handleErrors from '../../_helpers/handle-errors.js'
 
 const controllersApiListingsShow = async (req, res) => {
   try {
-    // console.log(req.userId)
-    const { params: { listingId } } = req // not id
+    const { params: { listingId } } = req
 
     const foundListing = await prisma.listing.findUnique({
-      where: { id: Number(listingId) }, // not id
+      where: { id: Number(listingId) },
       rejectOnNotFound: true,
       include: {
         //  items: true,
         user: {
           select: {
             id: true,
-            avatar: true, // need?
+            avatar: true,
             name: true,
             bio: true
           }

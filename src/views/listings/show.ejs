@@ -1,20 +1,48 @@
 <%- contentFor('styles') %>
-  <%- contentFor('scripts') %>
-    <script type="module" src="https://unpkg.com/x-frame-bypass"></script>
-    <script>
-      const id = window.location.href.split('/').reverse()[0] //href vs pathname?
-      const generateTitle = ({ isLoading, listing } = {}) => {
-        if (isLoading) return `<div class="text-center">Loading...</div>`
-        if (!listing) return `<h1 class="text-center mb-3">Listing ${id} Not Found!</h1>`
+<style>
+  #pages-listings-show {
+  height: 80vh;
+  border: 2px solid black;
+}
 
-        return `<h1 class="text-center mb-3">Listing ${id}</h1>`
-      }
+/* iframe {
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 70vw;
+  height: 60vh;
+} */
 
-      // add artist name as well? delete list group
-      const generateListing = ({ isLoading, listing } = {}) => {
-        if (isLoading || !listing) return ''
+.card {
+  /* font-family: 'Bebas Neue', cursive;
+  color: white; */
+  background-color: black;
+}
 
-        return `
+h1 {
+ /* font-family: 'Bebas Neue', cursive; */
+  color: white;
+}
+
+a {
+  font-size: 1.3rem;
+}
+</style>
+<%- contentFor('scripts') %>
+<script type="module" src="https://unpkg.com/x-frame-bypass"></script>
+<script>
+const id = window.location.href.split('/').reverse()[0]
+const generateTitle = ({ isLoading, listing } = {}) => {
+  if (isLoading) return `<div class="text-center">Loading...</div>`
+  if (!listing) return `<h1 class="text-center mb-3">Listing ${id} Not Found!</h1>`
+
+  return `<h1 class="text-center mb-3">Listing ${id}</h1>`
+}
+
+const generateListing = ({ isLoading, listing } = {}) => {
+  if (isLoading || !listing) return ''
+
+  return `
     <div class="row">
       <div class="col-12">
         <div class="card">
@@ -28,9 +56,9 @@
       </div>
     </div>
   `
-      }
+}
 
-      /*   <iframe src="${listing.linkIframe}" frameborder="0" target='_top' sandbox></iframe>
+/*   <iframe src="${listing.linkIframe}" frameborder="0" target='_top' sandbox></iframe>
             <a href="/artists/${listing.user.id}">
             <img class="mb-2" src="${listing.user.avatar}" alt="user avatar" width="100" />
             </a>
@@ -53,65 +81,30 @@
               ${listing.items.map((item) => `<li class="list-group-item ${item.checked && 'text-decoration-line-through'}">${item.name}</li>`).join('')}
             </ul> */
 
-      const generatePage = (info) => {
-        const $page = $('#pages-listings-show')
-        const $title = generateTitle(info)
-        const $listing = generateListing(info)
+const generatePage = (info) => {
+  const $page = $('#pages-listings-show')
+  const $title = generateTitle(info)
+  const $listing = generateListing(info)
+  $page.html('').append($title).append($listing)
+}
 
-        $page.html('').append($title).append($listing)
-      }
+const getListing = () => {
+  axios({
+    method: 'GET',
+    url: `/api/listings/${id}`
+  }).then((resp) => {
+    console.log(resp.data.userId)
+    generatePage({ listing: resp.data })
+  }).catch((err) => {
+    generatePage()
+  })
+}
 
-      const getListing = () => {
-        axios({
-          method: 'GET',
-          url: `/api/listings/${id}` // update
-        }).then((resp) => {
-          console.log(resp.data.userId)
-          generatePage({ listing: resp.data })
-        }).catch((err) => {
-          generatePage()
-        })
-      }
+$(document).ready(() => {
+  generatePage({ isLoading: true })
+  getListing()
+})
 
-      $(document).ready(() => {
-        generatePage({ isLoading: true })
-        getListing()
-
-      })
-
-    </script>
-
-
-    <%- contentFor('body') %>
-      <div id="pages-listings-show" class="container"></div>
-
-      <!--<?php require 'iframe.php'?></?php>
-<div id="divId" width="500px" height="500px"></div> -->
-
-
-      <!--
-  // $('#divId').load(listing.linkIframe);
-
-   $(document).ready(function () {
-    var target_domain = "www.revolve.com";
-    var protocol = "http://";
-    //var path = ; //e.g. "/index.html"
-    var target_host = protocol + target_domain;
-    //var target_URI = target_host + path;
-    var method = "GET";
-    $.ajax({
-      url: target_URI,
-      type: method,
-      headers: {
-        "X-Requested-With": "", //nullifies the default AJAX value of "XMLHttpRequest"
-        "Origin": target_host, //lies to the target server
-        "Referer": target_host, //lies to the target server
-        "X-Http-Method-Override": method, //forces the specified method
-      },
-      crossDomain: "true" //applies cross domain settings
-    });
-  });
-  $(document).ajaxSuccess(function () {
-    $("#iframe_imitator").html(xhr.responseText);
-  });
--->
+</script>
+<%- contentFor('body') %>
+<div id="pages-listings-show" class="container"></div>

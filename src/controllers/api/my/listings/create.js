@@ -7,10 +7,9 @@ import uploadFileAsync from '../../../_helpers/upload-file.js'
 const createSchema = yup.object({
   title: yup.string().required(),
   description: yup.string().required(),
-  hallId: yup.string().required(), // how pass as param?
+  hallId: yup.string().required(),
   work: yup.mixed().required()
   // linkIframe: yup.string().required() // url()?
-  // image: yup.mixed().required()
   /* listings: yup.array().of(yup.object({ // items:
     name: yup.string().required().label('name'),
     hallId: yup.string().required().label('hallId') // need label?

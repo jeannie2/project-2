@@ -1,4 +1,23 @@
 <%- contentFor('styles') %>
+<style>
+.card {
+  background-color: black;
+}
+
+/* iframe {
+  position: relative;
+  width: 40vw;
+  height: 50vh;
+} */
+
+h1,
+h3,
+p {
+  font-family: 'Bebas Neue', cursive;
+  color: white;
+}
+
+</style>
 <%- contentFor('scripts') %>
 <script>
 const id = window.location.href.split('/').reverse()[0]
@@ -11,7 +30,6 @@ const generateTitle = ({ isLoading, listing } = {}) => {
   return `<h1 class="text-center mb-3">Listing ${id}</h1>`
 }
 
-// add artist? delete ul list-group?
 const generateListing = ({ isLoading, listing } = {}) => {
   if (isLoading || !listing) return ''
 
@@ -60,9 +78,9 @@ const handleDelete = (e) => {
 
   axios({
     method: 'DELETE',
-    url: `/api/my/listings/${id}` // check
+    url: `/api/my/listings/${id}`
   }).then((resp) => {
-    window.location.href = '/my/listings'  // check
+    window.location.href = '/my/listings'
   })
 }
 

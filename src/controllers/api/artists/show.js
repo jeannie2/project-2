@@ -1,7 +1,7 @@
 import prisma from '../../_helpers/prisma.js'
 import handleErrors from '../../_helpers/handle-errors.js'
 
-const controllersApiArtistsShow = async (req, res) => { /// HOW TO UPDATE THIS PART???
+const controllersApiArtistsShow = async (req, res) => {
   try {
     // const { params: { userId } } = req
     const { session: { user: { id: userId } } } = req
@@ -9,7 +9,7 @@ const controllersApiArtistsShow = async (req, res) => { /// HOW TO UPDATE THIS P
     // const { user: { id } } = req
 
     const foundListing = await prisma.user.findUnique({ // await prisma.listing.user.findUnique(
-      where: { id: Number(userId) }, // not id.  where: { id: Number(artistId) }, // not id
+      where: { id: Number(userId) }, // not id.  where: { id: Number(artistId) }
       rejectOnNotFound: true
       /* include: {
         // items: true,
@@ -27,4 +27,4 @@ const controllersApiArtistsShow = async (req, res) => { /// HOW TO UPDATE THIS P
   }
 }
 
-export default controllersApiArtistsShow // Artist singular?
+export default controllersApiArtistsShow

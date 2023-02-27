@@ -8,7 +8,6 @@ nav {
 const replaceDynamicLinks = ({ isLoading, user } = {}) => {
   if (isLoading) return $('#navbar-dynamic-links').html('loading...')
 
-    // check href below
     $('#navbar-dynamic-links').html(user ? `
     <li class="nav-item">
       <a class="nav-link" href="/my/listings">My Work</a>
@@ -52,7 +51,7 @@ const handleLogout = (e) => {
     method: 'DELETE',
     url: '/api/auth/logout'
   }).then(() => {
-    window.location.href = '/' // check
+    window.location.href = '/'
   })
 }
 
@@ -64,7 +63,7 @@ $(document).ready(() => {
 
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
   <div class="container-fluid">
-    <a class="navbar-brand" href="/allHalls">Home</a> <!-- update href -->
+    <a class="navbar-brand" href="/allHalls">Home</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar-links">
       <span class="navbar-toggler-icon"></span>
     </button>

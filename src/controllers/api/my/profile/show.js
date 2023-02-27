@@ -2,7 +2,6 @@ import _ from 'lodash'
 import prisma from '../../../_helpers/prisma.js'
 import handleErrors from '../../../_helpers/handle-errors.js'
 
-// add avatar code?
 const controllersApiMyProfileShow = async (req, res) => {
   try {
     const { session: { user: { id } } } = req

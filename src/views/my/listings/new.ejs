@@ -1,39 +1,25 @@
 <%- contentFor('styles') %>
+<style>
+#pages-my-listings-new {
+  text-align: center;
+}
+
+h1 {
+  color: white;
+}
+
+label {
+  font-size: 1.2rem;
+}
+</style>
 <%- contentFor('scripts') %>
 <script>
 const generateTitle = () => {
   return '<h1 class="text-center mb-3">Create new listing</h1>'
 }
 
-/* const generateItemInputs = (values, errors) => {
-  const items = values?.items || []
-  const itemsErrs = errors?.items || []
-
-  // update input, delete form-check div?
-  return items.map((item, i) => {
-    return `
-      <div class="mb-3">
-        <label for="listing-item-${i}-name" class="form-label">Item ${i + 1}</label>
-        <button class="delete-item btn btn-danger btn-sm float-end" data-index="${i}" type="button">Delete</button>
-        <input
-          id="listing-item-${i}-name"
-          class="form-control ${itemsErrs[i]?.name && 'is-invalid'}"
-          name="items[${i}][name]"
-          value="${item?.name || ''}"
-        ></input>
-        <div class="invalid-feedback">${itemsErrs[i]?.name || ''}</div>
-      </div>
-      <div class="form-check mb-3">
-        <input id="listing-item-${i}-checked" class="form-check-input" type="checkbox" name="items[${i}][checked]" ${item?.checked ? 'checked' : ''}>
-        <label for="listing-item-${i}-checked" class="form-check-label">Received/Brought</label>
-      </div>
-    `
-  }).join('')
-} */
-
-// update input, delete items div, add artist?
 const generateForm = ({ listing, errors } = {}) => {
-   const $form = $(`
+  const $form = $(`
 
     <div class="row">
       <div id="form-wrapper" class="col-12 col-md-10 offset-md-1 col-lg-8 offset-lg-2">
@@ -91,30 +77,8 @@ const generateForm = ({ listing, errors } = {}) => {
     const $work = $('#listing-work').attr('class', `form-control ${errors?.work && 'is-invalid'}`)
     $form.find('#listing-work').replaceWith($work)
   }
-    return $form
+  return $form
 }
-
-/*
-<div class="mb-3">
-            <label for="listing-linkIframe" class="form-label">Link to work</label>
-            <input
-              id="listing-linkIframe"
-              class="form-control ${errors?.linkIframe && 'is-invalid'}"
-              name="linkIframe"
-              type="url"
-              value="${listing?.linkIframe || ''}"
-            ></input>
-            <div class="invalid-feedback">${errors?.linkIframe || ''}</div>
-          </div>
-
-<div class="mb-3">
-            <div class="mb-2 fw-bold">Items (Optional)</div>
-            ${generateItemInputs(listing, errors)}
-            <div class="text-center">
-              <button id="add-listing-item" class="btn btn-info btn-sm" type="button">Add Item</button>
-            </div>
-          </div>
- */
 
 const generatePage = (info) => {
   const $page = $('#pages-my-listings-new')
@@ -132,10 +96,10 @@ const handleSubmit = (e) => {
 
   axios({
     method: 'POST',
-    url: '/api/my/listings', // check
+    url: '/api/my/listings',
     data
   }).then((resp) => {
-    window.location.href = `/my/listings/${resp.data.id}` // check
+    window.location.href = `/my/listings/${resp.data.id}`
   }).catch((err) => {
     generatePage({ listing: parseFormData(data), errors: err.response.data })
   })
@@ -143,7 +107,6 @@ const handleSubmit = (e) => {
 
 const handleAddItem = () => {
   const data = parseFormData(new FormData($('#listing-new-form')[0]))
-  // data.items = [...data?.items || [], { name: '', checked: false }]
 
   generatePage({ listing: data })
 }

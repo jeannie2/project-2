@@ -1,4 +1,19 @@
 <%- contentFor('styles') %>
+<style>
+#pages-auth-signup {
+  text-align: center;
+}
+
+h1,
+label {
+  color: white;
+}
+
+label {
+  font-size: 1.3rem;
+}
+
+</style>
 <%- contentFor('scripts') %>
 <script>
 const generateForm = ({ user, errors } = {}) => {
@@ -119,7 +134,7 @@ const handleSignup = (e) => {
     url: '/api/auth/signup',
     data
   }).then(() => {
-    window.location.href = `/my/listings` // check
+    window.location.href = `/my/listings`
   }).catch((err) => {
     generatePage({
     user: parseFormData(data),

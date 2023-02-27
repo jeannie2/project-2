@@ -1,4 +1,16 @@
 <%- contentFor('styles') %>
+<style>
+.card {
+  /* font-family: $bebas;
+  color: white; */
+}
+
+h1, a {
+ /* font-family: 'Bebas Neue', cursive; */
+  color: white;
+}
+
+</style>
 <%- contentFor('scripts') %>
 <script>
 const id = window.location.href.split('/').reverse()[0]
@@ -24,7 +36,7 @@ const generateArtistProfile = ({ isLoading, user } = {}) => {
             <img class="mb-2" src="${user.avatar}" alt="user avatar" width="200" />
             <h3 class="card-title mb-2">${user.id}</h3>
             <p class="card-text mb-2">${user.bio}</p>
-            <a href=${user.link}</a>
+            Website: <a href=${user.link}>${user.link}</a>
           </div>
         </div>
       </div>
@@ -65,5 +77,5 @@ $(document).ready(() => {
 })
 </script>
 
-<%- contentFor('body') %> HELLO HELLO
+<%- contentFor('body') %>
 <div id="pages-artist-show" class="container"></div>

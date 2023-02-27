@@ -1,14 +1,44 @@
 <%- contentFor('styles') %>
+<style>
+  body {
+  background-image: url("/assets/green.jpg");
+  background-size: cover;
+}
+
+/* iframe {
+  position: relative;
+  width: 90%;
+  height: 70%;
+} */
+
+.card {
+  background-color: white;
+  border: 5px solid #1B0000;
+  margin-top: 20px;
+  box-shadow: 0 8px 20px 0 rgba(0, 0, 0, 0.2), 0 12px 20px 0 rgba(0, 0, 0, 0.19);
+  box-shadow: 10px 10px 16px #000000,
+    inset 0 0 5px 3px hsl(0, 0%, 30%),
+    inset 0 0 0 2px hsl(0, 1%, 53%),
+    inset 0 0 3px 5px hsl(0, 33%, 10%);
+  /* min-width: 25vw;
+  max-width: 10vw; */
+}
+
+h1 {
+  color: black;
+}
+
+</style>
 <%- contentFor('scripts') %>
 <script>
 const id = window.location.href.split('/').reverse()[0]
 const generateTitle = () => {
-        return '<h1 class="text-center mb-3 display-1">Hall B</h1>'
-      } // update generateTitle h1 text?
+    return '<h1 class="text-center mb-3 display-1">Hall B</h1>'
+} // update generateTitle h1 text?
 
-      // update filter fields?
-      const generateFilter = ({ queries } = {}) => {
-        return `
+// update filter fields?
+const generateFilter = ({ queries } = {}) => {
+  return `
     <form id="filter" class="row row-cols-lg-auto g-3 justify-content-center align-items-center mb-3">
       <div class="col-12">
         <div class="input-group">
@@ -53,12 +83,11 @@ const generateTitle = () => {
       </div>
     </form>
   `
-      }
+}
 
-      // check href
-      const generateListing = (listing) => {
-        return `
-       <div class="col-12 col-sm-6 col-lg-3">
+const generateListing = (listing) => {
+  return `
+    <div class="col-12 col-sm-6 col-lg-3">
       <a class="card animate__animated animate__flipInX text-body" href="/listings/${listing.id}" style="text-decoration: none;">
             <img id="workImage" class="mb-2 card-img-top" src="${listing.work}" alt="user work" />
               <div class="card-body text-center">
@@ -68,128 +97,95 @@ const generateTitle = () => {
       </a>
 </div>
   `
-      }
+}
       /*           <iframe class="mb-2" src="${listing.linkIframe}" alt="user linkIframe"></iframe
          <p class="card-text mb-2">${listing.description}</p>*/
 
-      const generateListings = ({ isLoading, listings = [] } = {}) => {
-        if (isLoading) return `<div class="text-center mb-3">Loading...</div>`
-        if (listings.length === 0) {
-          return `
+const generateListings = ({ isLoading, listings = [] } = {}) => {
+  if (isLoading) return `<div class="text-center mb-3">Loading...</div>`
+  if (listings.length === 0) {
+    return `
       <h2 class="text-center mb-3">No Listing Found!</h2>
     `
-        }
+}
 
-        return `
-         <div id="main" class="container p-3">
-         <div class="row">
+return `
+  <div id="main" class="container p-3">
+  <div class="row">
           ${listings.map(generateListing).join('')}
         </div>
           </div>
     </div>
   `
-      }
+}
 
-      /*
-        <div class="col-12 col-sm-6 col-lg-3">
-        <div class="card">
-      <a class="card t
+const generatePage = (info) => {
+  const $page = $('#pages-listings-index')
+  const $title = generateTitle(info)
+  const $filter = generateFilter(info)
+  const $listings = generateListings(info)
+  $page.html('').append($title).append($filter).append($listings)
+}
 
-      const generatePagination = (isLoading, { currentPage = 1, totalPages = 1 } = {}) => {
-              if (isLoading) return ''
+const getListings = () => {
+  axios({
+    method: 'GET',
+    url: `/api/halls/${id}`
+  }).then((resp) => {
+    console.log(resp.data)
+    generatePage({ listings: resp.data})
+    // generatePage({ listings: resp.data.listings })
+    // generatePage({ listings: resp.data.listings, meta: resp.data.meta })
+  })
+}
 
-              let links = ''
+const handleFilterSubmit = (e) => {
+  e.preventDefault
+  const queries = parseFormData(new FormData(e.currentTarget))
+  generatePage({ isLoading: true, queries })
 
-              if (totalPages > 2 && currentPage > 1) links += `<li class="page-item"><a class="page-link" href="#" data-page="1">First</a></li>`
-              if (currentPage - 1 >= 1) links += `<li class="page-item"><a class="page-link" href="#" data-page="${currentPage - 1}">Prev</a></li>`
-              if (currentPage - 2 >= 1) links += `<li class="page-item"><a class="page-link" href="#" data-page="${currentPage - 2}">${currentPage - 2}</a></li>`
-              if (currentPage - 1 >= 1) links += `<li class="page-item"><a class="page-link" href="#" data-page="${currentPage - 1}">${currentPage - 1}</a></li>`
+  axios({
+    method: 'GET',
+    url: `/api/halls/${id}`,
+    params: queries
+  }).then((resp) => {
+    generatePage({ queries, listings: resp.data })
+    // generatePage({ queries, listings: resp.data.listings })
+    // generatePage({ queries, wishlists: resp.data.wishlists, meta: resp.data.meta })
+  })
+}
 
-              links += `<li class="page-item active"><a class="page-link">${currentPage}</a></li>`
+const handleFilterReset = (e) => {
+  generatePage({ isLoading: true })
+  getListings()
+}
 
-              if (currentPage + 1 <= totalPages) links += `<li class="page-item"><a class="page-link" href="#" data-page="${currentPage + 1}">${currentPage + 1}</a></li>`
-              if (currentPage + 2 <= totalPages) links += `<li class="page-item"><a class="page-link" href="#" data-page="${currentPage + 2}">${currentPage + 2}</a></li>`
-              if (currentPage + 1 <= totalPages) links += `<li class="page-item"><a class="page-link" href="#" data-page="${currentPage + 1}">Next</a></li>`
-              if (totalPages > 2 && currentPage < totalPages) links += `<li class="page-item"><a class="page-link" href="#" data-page="${totalPages}">Last</a></li>`
+const handlePageChange = (e) => {
+  e.preventDefault
+  const queries = parseFormData(new FormData($('#filter')[0]))
+  const page = $(e.currentTarget).data('page')
+  generatePage({ isLoading: true, queries })
 
-              return `
-          <ul class="pagination justify-content-center mt-3">
-            ${links}
-          </ul>
-        `
-      } */
+  axios({
+    method: 'GET',
+    url: `/api/halls/${id}`,
+    params: { page, ...queries }
+  }).then((resp) => {
+    generatePage({ queries, listings: resp.data})
+    // generatePage({ queries, listings: resp.data.listings })
+    // generatePage({ queries, wishlists: resp.data.wishlists, meta: resp.data.meta })
+    })
+}
 
-      const generatePage = (info) => {
-        const $page = $('#pages-listings-index')
-        const $title = generateTitle(info)
-        const $filter = generateFilter(info)
-        const $listings = generateListings(info)
-        // const $pagination = generatePagination(info)
+$(document).ready(() => {
+  generatePage({ isLoading: true })
+  getListings()
+  $('#pages-listings-index').on('submit', '#filter', handleFilterSubmit)
+  $('#pages-listings-index').on('click', '#filter #reset-form', handleFilterReset)
+  $('#pages-listings-index').on('click', '.page-link', handlePageChange)
+})
 
-        $page.html('').append($title).append($filter).append($listings) // .append($pagination)
-      }
+</script>
 
-      const getListings = () => {
-        axios({
-          method: 'GET',
-          url: `/api/halls/${id}` // check api/halls
-        }).then((resp) => {
-          console.log(resp.data)
-          generatePage({ listings: resp.data})
-          // generatePage({ listings: resp.data.listings })
-          // generatePage({ listings: resp.data.listings, meta: resp.data.meta })
-        })
-      }
-
-      const handleFilterSubmit = (e) => {
-        e.preventDefault()
-
-        const queries = parseFormData(new FormData(e.currentTarget))
-        generatePage({ isLoading: true, queries })
-
-        axios({
-          method: 'GET',
-          url: `/api/halls/${id}`, // check
-          params: queries
-        }).then((resp) => {
-          generatePage({ queries, listings: resp.data })
-          // generatePage({ queries, listings: resp.data.listings })
-          // generatePage({ queries, wishlists: resp.data.wishlists, meta: resp.data.meta })
-        })
-      }
-
-      const handleFilterReset = (e) => {
-        generatePage({ isLoading: true })
-        getListings()
-      }
-
-      const handlePageChange = (e) => {
-        e.preventDefault()
-
-        const queries = parseFormData(new FormData($('#filter')[0]))
-        const page = $(e.currentTarget).data('page')
-        generatePage({ isLoading: true, queries })
-
-        axios({
-          method: 'GET',
-          url: `/api/halls/${id}`, // check
-          params: { page, ...queries }
-        }).then((resp) => {
-          generatePage({ queries, listings: resp.data})
-          // generatePage({ queries, listings: resp.data.listings })
-          // generatePage({ queries, wishlists: resp.data.wishlists, meta: resp.data.meta })
-        })
-      }
-
-      $(document).ready(() => {
-        generatePage({ isLoading: true })
-        getListings()
-        $('#pages-listings-index').on('submit', '#filter', handleFilterSubmit)
-        $('#pages-listings-index').on('click', '#filter #reset-form', handleFilterReset)
-        $('#pages-listings-index').on('click', '.page-link', handlePageChange)
-      })
-
-    </script>
-
-    <%- contentFor('body') %>
-      <div id="pages-listings-index" class="container"></div>
+<%- contentFor('body') %>
+<div id="pages-listings-index" class="container"></div>
