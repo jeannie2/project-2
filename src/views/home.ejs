@@ -30,10 +30,10 @@
 }
 
 #visitors:hover, #exhibitors:hover {
+  opacity: 0.7;
   background-image: url("/assets/hand_down.png");
   background-size: cover;
-  background-position: 50% 80%;
-  opacity: 0.8;
+  background-position: 60% 90%;
 }
 
 h1 {
@@ -51,8 +51,7 @@ a {
   position: relative;
   top: 250px;
   transition: color .3s ease-in-out, box-shadow .3s ease-in-out;
-  text-decoration: none;
-  font-size: 2rem;
+  font-size: 3rem;
   color: white;
   box-shadow: inset 0 0 0 0 black;
 }
@@ -66,7 +65,7 @@ a:hover {
 <%- contentFor('body') %>
 <div id="home" class="container">
   <div class="row text-center">
-    <h1> M o M A online </h1>
+    <h1 class="display-4">Art Tunnel </h1>
   </div>
 
   <div class="row text-center text-center">
@@ -77,7 +76,7 @@ a:hover {
 
   <div id="exhibitors" class="col text-center">
     <h2 class="display-1">Exhibitors </h2><br>
-      <a href="auth/login" class="mx-2">Login &nbsp </a>
+      <a href="auth/login" class="mx-2">Login </a>
       <a href="auth/signup">Register </a>
     </div>
   </div>
