@@ -5,12 +5,6 @@ body {
   background-size: cover;
 }
 
-/* iframe {
-  position: relative;
-  width: 90%;
-  height: 70%;
-} */
-
 .card {
   background-color: white;
   border: 5px solid #1B0000;
@@ -20,23 +14,25 @@ body {
     inset 0 0 5px 3px hsl(0, 0%, 30%),
     inset 0 0 0 2px hsl(0, 1%, 53%),
     inset 0 0 3px 5px hsl(0, 33%, 10%);
-  /* min-width: 25vw;
-  max-width: 10vw; */
 }
 
 h1 {
   color: black;
+}
+
+h6 {
+  font-family: 'Blinker', sans-serif;
 }
 </style>
 <%- contentFor('scripts') %>
 <script>
 const id = window.location.href.split('/').reverse()[0]
 const generateTitle = () => {
-  return '<h1 class="text-center mb-3 display-1">Main Hall</h1>'
+  return '<h1 class="text-center mb-3 display-1">Main Gallery</h1>'
 }
 
 const generateFilter = ({ queries } = {}) => {
-        return `
+  return `
     <form id="filter" class="row row-cols-lg-auto g-3 justify-content-center align-items-center mb-3">
       <div class="col-12">
         <div class="input-group">
@@ -81,7 +77,7 @@ const generateFilter = ({ queries } = {}) => {
       </div>
     </form>
   `
-      }
+}
 
 const generateListing = (listing) => {
   return `
@@ -93,27 +89,21 @@ const generateListing = (listing) => {
           <h6 class="card-title mb-2">${listing.title}</h6>
         </div>
       </a>
-</div>
+    </div>
   `
 }
-
-/*  <iframe class="mb-2" src="${listing.linkIframe}" alt="user linkIframe"></iframe
-<p class="card-text mb-2">${listing.description}</p>*/
 
 const generateListings = ({ isLoading, listings = [] } = {}) => {
   if (isLoading) return `<div class="text-center mb-3">Loading...</div>`
   if (listings.length === 0) {
-  return `
-      <h2 class="text-center mb-3">No Listing Found!</h2>
-    `
+  return `<h2 class="text-center mb-3">No Listing Found!</h2>`
   }
 
   return `
-         <div id="main" class="container p-3">
-         <div class="row">
+    <div id="main" class="container p-3">
+      <div class="row">
           ${listings.map(generateListing).join('')}
-        </div>
-          </div>
+      </div>
     </div>
   `
 }
@@ -134,8 +124,6 @@ const getListings = () => {
   }).then((resp) => {
     console.log(resp.data)
     generatePage({ listings: resp.data})
-    // generatePage({ listings: resp.data.listings })
-    // generatePage({ listings: resp.data.listings, meta: resp.data.meta })
   })
 }
 
@@ -152,7 +140,6 @@ const handleFilterSubmit = (e) => {
   }).then((resp) => {
     generatePage({ queries, listings: resp.data })
     // generatePage({ queries, listings: resp.data.listings })
-    // generatePage({ queries, wishlists: resp.data.wishlists, meta: resp.data.meta })
   })
 }
 
@@ -173,8 +160,6 @@ const handlePageChange = (e) => {
     params: { page, ...queries }
   }).then((resp) => {
     generatePage({ queries, listings: resp.data})
-    // generatePage({ queries, listings: resp.data.listings })
-    // generatePage({ queries, wishlists: resp.data.wishlists, meta: resp.data.meta })
   })
 }
 

@@ -9,11 +9,6 @@ const createSchema = yup.object({
   description: yup.string().required(),
   hallId: yup.string().required(),
   work: yup.mixed().required()
-  // linkIframe: yup.string().required() // url()?
-  /* listings: yup.array().of(yup.object({ // items:
-    name: yup.string().required().label('name'),
-    hallId: yup.string().required().label('hallId') // need label?
-  })) */
 })
 
 const controllersApiMyListingsCreate = async (req, res) => {
@@ -24,10 +19,7 @@ const controllersApiMyListingsCreate = async (req, res) => {
     const newListing = await prisma.listing.create({
       data: {
         userId,
-        ...verifiedData /* , */
-        /* items: {
-          create: verifiedData?.items
-        } */
+        ...verifiedData
       }
     })
     return res.status(201).json(newListing)

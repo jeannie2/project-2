@@ -1,39 +1,17 @@
-# Instructions
+# Art Tunnel
 
-- Clone and rename folder `$ git clone git@github.com:dented-academy/express-full-starter.git [your_project_name_here]`
-- Find and rename all instance of `[your_project_name_here]` to your actual project name
-- Run `$ npm install`
-- Run `$ npx prisma init`
-- Add to `.env` file (create if not exist)
-  ```env
-  DATABASE_URL="postgresql://[user]:[password]@localhost:5432/[your_project_name_here]"
-  SECRET_COOKIE_PASSWORD="complex_password_at_least_32_characters_long"
-  ```
-- Add `models` to `prisma/schema.prisma`
-- Run `$ npx prisma migrate dev`
-- Run `$ rm -rf .git`
-- Run `$ git init`
-- Create a new repo in github and add the repo ssh link to remote
-- Run `$ git add .`
-- Run `$ git commit -m 'init'`
-- Run `$ git push origin master`
-- Run `$ nodemon`
+Virtual reimagining of an art exhibition using RESTful routes, authentication, models, PostgresQL for FSWDI project 2
 
-# Deployment To Railway Through Web Interface
+## Technologies
 
-- Go to [Railway](https://railway.app/)
-- Go to `Dashboard` and Create a new project (Select `Empty Project`)
-- Add a new Service `Database -> Add PostgreSQL`
-- Add a new Service `GitHub Repo -> Select your project`
-- Click on your `>_ Repo-Name -> Variables -> New Variable`
-  - Add all items you have in `.env` (Like S3 but ignore `DATABASE_URL`)
-- Click on your `>_ Repo-Name -> Settings -> Environment -> Generate Domain` (This will generate a domain for your project)
-- Now, whenever you push to your github repo's master branch, it will automatically deploy to Railway
+This project was made using HTML, SCSS, JavaScript, jQuery, Bootstrap, animate.css, Yup, Prisma, Express, Amazon S3, PostgreSQL
 
-https://pixabay.com/photos/white-wall-texture-grunge-rough-1866105/
+## Install instructions
 
-https://pixabay.com/photos/wall-paint-pink-simple-crack-2589886/
-https://pixabay.com/photos/pink-red-wall-tissue-background-4107025/
-https://pixabay.com/photos/green-pink-red-wall-tissue-4107021/
-https://pixabay.com/photos/wall-blue-grunge-ancient-pattern-3430446/
-https://pixabay.com/photos/metal-wall-iron-fence-door-aged-176800/
+Click Code and copy the ssh link. Use the command $ git clone [ssh link] and run local server. View demo on GitHub Pages or Railway
+
+## Sources
+
+https://animate.style/ <br/>
+https://pixabay.com/ <br/>
+https://freesound.org/

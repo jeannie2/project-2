@@ -12,6 +12,9 @@ p {
   color: white;
 }
 
+p, h5 {
+  font-family:'Blinker', sans-serif;
+}
 </style>
 <%- contentFor('scripts') %>
 <script>
@@ -76,11 +79,8 @@ const generateListing = (listing) => {
 
 const generateListings = ({ isLoading, listings = [] } = {}) => {
   if (isLoading) return `<div class="text-center mb-3">Loading...</div>`
-  console.log(listings)
   if (listings.length === 0) {
-    return `
-      <h2 class="text-center mb-3">No listings found!</h2>
-    `
+    return `<h2 class="text-center mb-3">No listings found!</h2>`
   }
 
   return `
@@ -109,8 +109,7 @@ $(document).ready(() => {
     method: 'GET',
     url: '/api/my/listings'
   }).then((resp) => {
-    generatePage({ listings: resp.data}) // resp.data.listings
-    // generatePage({ listings: resp.data.listings, meta: resp.data.meta })
+    generatePage({ listings: resp.data})
   })
 
   // On Filter Submit
@@ -126,8 +125,6 @@ $(document).ready(() => {
       params: queries
     }).then((resp) => {
       generatePage({ listings: resp.data, queries })
-      //generatePage({ listings: resp.data.listings, queries })
-      //generatePage({ listings: resp.data.listings, meta: resp.data.meta, queries })
     })
   })
 
@@ -140,8 +137,6 @@ $(document).ready(() => {
       url: `/api/my/listings`
     }).then((resp) => {
       generatePage({ listings: resp.data })
-      // generatePage({ listings: resp.data.listings })
-      // generatePage({ listings: resp.data.listings, meta: resp.data.meta })
     })
   })
 
@@ -162,13 +157,9 @@ $(document).ready(() => {
       }
     }).then((resp) => {
     generatePage({ listings: resp.data, queries })
-     // generatePage({ listings: resp.data.listings, queries })
-     // console.log(resp) // resp.data
-     // generatePage({ listings: resp.data.listings, meta: resp.data.meta, queries })
     })
   })
 })
 </script>
-
 <%- contentFor('body') %>
 <div id="pages-my-listings-index" class="container"></div>

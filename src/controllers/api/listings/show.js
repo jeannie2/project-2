@@ -9,7 +9,6 @@ const controllersApiListingsShow = async (req, res) => {
       where: { id: Number(listingId) },
       rejectOnNotFound: true,
       include: {
-        //  items: true,
         user: {
           select: {
             id: true,

@@ -5,14 +5,6 @@ import authenticateUser from './_middlewares/authenticate-user.js'
 
 const router = Router()
 
-// router.get('/testing', async (req, res) => {
-//   const resp = await axios.get('https://google.com', { responseType: 'document' })
-//   console.log(resp)
-
-//   res.setHeader('Content-Type', 'text/html')
-//   res.send(resp.data)
-// })
-
 // API | AUTH
 router.post('/api/auth/signup', (await import('./controllers/api/auth/signup.js')).default)
 router.post('/api/auth/login', (await import('./controllers/api/auth/login.js')).default)
@@ -29,16 +21,14 @@ router.get('/api/my/listings/:id', authenticateUser('json'), (await import('./co
 router.put('/api/my/listings/:id', authenticateUser('json'), (await import('./controllers/api/my/listings/update.js')).default)
 router.delete('/api/my/listings/:id', authenticateUser('json'), (await import('./controllers/api/my/listings/destroy.js')).default)
 
-// API | LISTINGS ----- CHECK
-// /api/halls/main
-router.get('/api/halls/:hallId', (await import('./controllers/api/halls/index.js')).default) // (await import('./controllers/api/halls/hallId/index.js')).default)
+// API LISTINGS
+router.get('/api/halls/:hallId', (await import('./controllers/api/halls/index.js')).default)
 
-// router.get('/api/halls/:hallId/:artId', (await import('./controllers/api/halls/show.js')).default) // (await import('./controllers/api/halls/hallId/artId/index.js')).default) . not show.js
+// API LISTING
+router.get('/api/listings/:listingId', (await import('./controllers/api/listings/show.js')).default)
 
-router.get('/api/listings/:listingId', (await import('./controllers/api/listings/show.js')).default) // (await import('./controllers/api/halls/hallId/artId/index.js')).default) . not show.js
-
-// API | ARTIST ----- CHECK
-router.get('/api/artists/:userId', (await import('./controllers/api/artists/show.js')).default) //  (await import('./controllers/api/artistId/index.js')).default) // artistId
+// API | ARTIST
+router.get('/api/artists/:userId', (await import('./controllers/api/artists/show.js')).default)
 
 // API | HOME
 router.get('/api', (await import('./controllers/api/home.js')).default)
@@ -46,8 +36,8 @@ router.get('/api', (await import('./controllers/api/home.js')).default)
 // API | ALL HALLS
 router.get('/api/allHalls', (await import('./controllers/api/allHalls.js')).default)
 
-// API | NOT FOUND   ----  CHECK
-router.use('/api', (await import('./controllers/api/not-found.js')).default) // can be same route / as home?
+// API | NOT FOUND
+router.use('/api', (await import('./controllers/api/not-found.js')).default) // can be same route / as home, but "use"
 
 /// ///////////////////////////////////////////////////////
 
@@ -65,22 +55,21 @@ router.get('/my/listings/:id', authenticateUser('html'), (await import('./contro
 router.get('/my/listings', authenticateUser('html'), (await import('./controllers/pages/my/listings/index.js')).default)
 
 // PAGES | LISTINGS
-router.get('/halls/:hallId', (await import('./controllers/pages/halls/index.js')).default) // (await import('./controllers/pages/halls/hallId/index.js')).default)
-// router.get('/halls/:hallId/:artId', (await import('./controllers/pages/halls/show.js')).default) // not show.js. (await import('./controllers/pages/halls/hallId/artId/index.js')).default)
+router.get('/halls/:hallId', (await import('./controllers/pages/halls/index.js')).default)
 
 // PAGES | LISTING
-router.get('/listings/:listingId', (await import('./controllers/pages/listings/show.js')).default) // (await import('./controllers/api/halls/hallId/artId/index.js')).default) . not show.js
+router.get('/listings/:listingId', (await import('./controllers/pages/listings/show.js')).default)
 
 // PAGES | ARTIST
-router.get('/artists/:userId', (await import('./controllers/pages/artists/show.js')).default) // not show. artists/artistId?. (await import('./controllers/pages/artistId/index.js')).default)
+router.get('/artists/:userId', (await import('./controllers/pages/artists/show.js')).default)
 
-// PAGES | Homepage
-router.get('/', (await import('./controllers/pages/home.js')).default) // correct?
+// PAGES | HOME
+router.get('/', (await import('./controllers/pages/home.js')).default)
 
-// PAGES | Homepage
-router.get('/allHalls', (await import('./controllers/pages/allHalls.js')).default) // correct
+// PAGES | ALL HALLS
+router.get('/allHalls', (await import('./controllers/pages/allHalls.js')).default)
 
 // PAGES | NOT FOUND
-router.use('/', (await import('./controllers/pages/not-found.js')).default) // can be same route / as home?
+router.use('/', (await import('./controllers/pages/not-found.js')).default)
 
 export default router

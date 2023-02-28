@@ -5,22 +5,11 @@
   border: 2px solid black;
 }
 
-/* iframe {
-  position: relative;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 70vw;
-  height: 60vh;
-} */
-
 .card {
-  /* font-family: 'Bebas Neue', cursive;
-  color: white; */
   background-color: black;
 }
 
 h1 {
- /* font-family: 'Bebas Neue', cursive; */
   color: white;
 }
 
@@ -58,29 +47,6 @@ const generateListing = ({ isLoading, listing } = {}) => {
   `
 }
 
-/*   <iframe src="${listing.linkIframe}" frameborder="0" target='_top' sandbox></iframe>
-            <a href="/artists/${listing.user.id}">
-            <img class="mb-2" src="${listing.user.avatar}" alt="user avatar" width="100" />
-            </a>
-
-
-        <embed src="https://ide.geeksforgeeks.org"
-      width="400"
-      height="400" />
-
-          <iframe is="x-frame-bypass" src="${listing.linkIframe}"></iframe>
-
-      <embed src="${listing.linkIframe}" width=200 height=200 />
-
-
-      src="iframe.php?url=${listing.linkIframe}"
-      <iframe src="${listing.linkIframe}?igu=1"></iframe>*/
-      /* <div> <div class="row"><div class="col"><iframe class="mb-2" src="${listing.link}"</div><div class="col"></div> */
-
-      /*  <ul class="list-group">
-              ${listing.items.map((item) => `<li class="list-group-item ${item.checked && 'text-decoration-line-through'}">${item.name}</li>`).join('')}
-            </ul> */
-
 const generatePage = (info) => {
   const $page = $('#pages-listings-show')
   const $title = generateTitle(info)
@@ -104,7 +70,6 @@ $(document).ready(() => {
   generatePage({ isLoading: true })
   getListing()
 })
-
 </script>
 <%- contentFor('body') %>
 <div id="pages-listings-show" class="container"></div>

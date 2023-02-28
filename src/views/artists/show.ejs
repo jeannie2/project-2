@@ -1,21 +1,12 @@
 <%- contentFor('styles') %>
 <style>
-.card {
-  /* font-family: $bebas;
-  color: white; */
-}
-
 h1, a {
- /* font-family: 'Bebas Neue', cursive; */
   color: white;
 }
-
 </style>
 <%- contentFor('scripts') %>
 <script>
 const id = window.location.href.split('/').reverse()[0]
-// const userId = window.location.href.split('/').reverse()[0] //delete?
-console.log(id) // undefined
 const generateTitle = ({ isLoading, user } = {}) => {
   if (isLoading) return `<div class="text-center">Loading...</div>`
   if (!user) return `<h1 class="text-center mb-3">Artist ${user.name} Not Found!</h1>`
@@ -23,8 +14,6 @@ const generateTitle = ({ isLoading, user } = {}) => {
   return `<h1 class="text-center mb-3">Artist profile</h1>`
 }
 
-// add artist name as well? delete list group
-// used to be listing.user.avatar, listing.user.name, listing.user.bio, listing.user.link
 const generateArtistProfile = ({ isLoading, user } = {}) => {
   if (isLoading || !user) return ''
 
@@ -44,12 +33,6 @@ const generateArtistProfile = ({ isLoading, user } = {}) => {
   `
 }
 
-/* <a href="www.google.com"></a> */
-//artists/${user.id}"
-/*  <ul class="list-group">
- ${listing.items.map((item) => `<li class="list-group-item ${item.checked && 'text-decoration-line-through'}">${item.name}</li>`).join('')}
-</ul> */
-
 const generatePage = (info) => {
   const $page = $('#pages-artist-show')
   const $title = generateTitle(info)
@@ -58,10 +41,9 @@ const generatePage = (info) => {
 }
 
 const getProfile = () => {
-  //const userId = user.id // wrote new line
   axios({
     method: 'GET',
-    url: `/api/artists/${id}` // update /api/artists/${userId}
+    url: `/api/artists/${id}`
   }).then((resp) => {
     console.log(resp.data)
     console.log(resp.data.id)
@@ -76,6 +58,5 @@ $(document).ready(() => {
   getProfile()
 })
 </script>
-
 <%- contentFor('body') %>
 <div id="pages-artist-show" class="container"></div>

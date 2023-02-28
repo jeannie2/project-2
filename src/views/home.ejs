@@ -1,9 +1,5 @@
 <%- contentFor('styles') %>
 <style>
-  /* #home {
-  @include blackBackground;
-} */
-
 .container {
   position: absolute;
   top: 50%;
@@ -21,26 +17,25 @@
 }
 
 #visitors {
-  /* background-image: url("/assets/hand_left.png"); */
-  opacity: 0.5;
   display: block;
+  opacity: 0.5;
   background-image: url("/assets/hand_right.png");
-  background-color: red;
-  background-size: cover;
   background-position: center;
-}
-
-#exhibitors {
-  background-color: blue;
-  opacity: 0.5
+  background-size: cover;
+  background-color: red;
 }
 
 #exhibitors {
   opacity: 0.5;
+  background-color: blue;
+}
+
+#exhibitors {
   display: block;
+  opacity: 0.5;
   background-image: url("/assets/hand_left.png");
-  background-size: cover;
   background-position: center;
+  background-size: cover;
 }
 
 #visitors:hover,
@@ -83,39 +78,34 @@ a:hover {
 }
 
 img {
-  left: -10%;
   position: relative;
   top: -30%;
+  left: -10%;
   width: 50%;
   height: auto;
 
 }
-
-img:hover {}
-
 </style>
 <%- contentFor('scripts') %>
 <%- contentFor('body') %>
 <div id="home" class="container">
   <div class="row text-center">
     <h1> M o M A online </h1>
-    </div>
-    <div class="row text-center">
-    <div id="visitors" class="col">
-    <h2 class="display-1">Visitors </h2><br>
-    <!--<img src="/assets/hand_right.png"> -->
-      <a href="/allHalls">Enter</a>
-    </div>
+  </div>
 
-    <div id="exhibitors" class="col">
+  <div class="row text-center">
+    <div id="visitors" class="col">
+      <h2 class="display-1">Visitors </h2><br>
+        <a href="/allHalls">Enter</a>
+  </div>
+
+  <div id="exhibitors" class="col">
     <h2 class="display-1">Exhibitors </h2><br>
       <a href="auth/login" class="mx-2">Login </a>
-      <!--<img src="/assets/hand_left.png"> -->
       <a href="auth/signup">Register </a>
     </div>
   </div>
 </div>
-
 <script>
-  $(".navbar").hide();
+$(".navbar").hide();
 </script>
