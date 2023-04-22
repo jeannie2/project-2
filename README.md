@@ -8,7 +8,7 @@ This project was made using HTML, SCSS, JavaScript, jQuery, Bootstrap, animate.c
 
 ## Install instructions
 
-Click Code and copy the ssh link. Use the command $ git clone [ssh link] and run local server. View demo on GitHub Pages or Railway
+View demo on Railway (see link: web-production-6c2c0.up.railway.app/)
 
 ## Sources
 
