@@ -1,6 +1,6 @@
 # Art Tunnel
 
-Virtual reimagining of an art exhibition using RESTful routes, authentication, models, PostgresQL for FSWDI project 2
+Virtual reimagining of an art exhibition using RESTful routes, authentication, models, PostgresQL for H Academy Full-Stack Web Developmnet Immersive bootcamp - project 2
 
 ## Technologies
 
