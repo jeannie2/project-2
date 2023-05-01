@@ -37,7 +37,7 @@ const generateListing = ({ isLoading, listing } = {}) => {
         <div class="card">
           <img class="mb-2 card-img-top" src="${listing.work}" alt="user work"/>
           <div class="card-body text-center">
-              <a href="/artists/${listing.user.id}">${listing.user.name} ${listing.user.id}</a>
+              <p>${listing.user.name}</p>
             <h5 class="card-title mb-2">${listing.title}</h5>
             <p class="card-text mb-2">${listing.description}</p>
           </div>
@@ -73,3 +73,5 @@ $(document).ready(() => {
 </script>
 <%- contentFor('body') %>
 <div id="pages-listings-show" class="container"></div>
+
+<!--<a href="/artists/${listing.user.id}">${listing.user.name} ${listing.user.id}</a>-->
